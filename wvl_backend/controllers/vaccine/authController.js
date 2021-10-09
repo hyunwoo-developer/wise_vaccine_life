@@ -59,6 +59,73 @@ const authController = {
             });
         }
     },
+
+    userUpdate: async (req, res, next) => {
+        const userInfo = req.userInfo;
+        const { id } = req.params;
+        const { age, gender, degree, inodate, profileImage } = req.body;
+
+        try {
+            if (userInfo.id === id) {
+                const result = await user.findByIdAndUpdate(
+                    id,
+                    {
+                        age,
+                        gender,
+                        degree,
+                        inodate, // 날짜 데이터 타입 문제
+                        profileImage,
+                        verified: true,
+                    },
+                    { new: true }
+                );
+
+                const payload = {
+                    nickName: result.nickName,
+                    verified: result.verified,
+                };
+                const token = jwtModule.create(payload);
+
+                res.status(statusCode.OK).json({
+                    message: "회원정보 수정 완료",
+                    data: { result, token },
+                });
+            } else {
+                res.status(statusCode.CONFLICT).json({
+                    message: "수정할 권한이 없습니다.",
+                });
+            }
+        } catch (error) {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: "회원정보 수정 실패",
+                error: error,
+            });
+        }
+    },
+
+    userDelete: async (req, res, next) => {
+        const userInfo = req.userInfo;
+        const { id } = req.params;
+
+        try {
+            if (userInfo.id === id) {
+                const result = await user.findByIdAndDelete(id);
+                res.status(statusCode.OK).json({
+                    message: "회원 탈퇴 완료",
+                    data: result,
+                });
+            } else {
+                res.status(statusCode.CONFLICT).json({
+                    message: "삭제할 권한이 없습니다.",
+                });
+            }
+        } catch (error) {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: "회원 탈퇴 실패",
+                error: error,
+            });
+        }
+    },
 };
 
 module.exports = authController;

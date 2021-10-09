@@ -26,13 +26,6 @@ const authModule = {
             });
         }
 
-        console.log(decoded);
-        if (decoded["verified"] === false) {
-            return res.status(statusCode.UNAUTHORIZED).json({
-                message: "추가 정보를 입력해주세요.",
-            });
-        }
-
         let userInfo;
         try {
             userInfo = await user.findOne({ nickName: decoded.nickName });

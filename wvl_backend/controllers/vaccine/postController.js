@@ -52,16 +52,13 @@ const postController = {
                     message: "DB 서버 에러",
                 });
             }
-        } catch (error) {
-            console.log(error);
-        }
 
-        try {
             const result = await post.findByIdAndUpdate(
                 id,
                 { title, content, tags, category, updatedDate: new Date() },
                 { new: true }
             );
+
             res.status(statusCode.OK).json({
                 message: "게시글 수정 성공",
                 data: result,
