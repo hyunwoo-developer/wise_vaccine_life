@@ -3,12 +3,14 @@ var router = express.Router();
 
 const authController = require("../../../controllers/vaccine/authController");
 const authModule = require("../../../modules/authModule");
-const editModule = require("../../../modules/editModule");
 
 router.post("/signup", authController.signup);
 router.post("/signin", authController.signin);
 
 router.put("/profile", authModule.loggedIn, authController.userUpdate);
-router.delete("/profile/:id", authModule.loggedIn, authController.userDelete);
+router.delete("/profile", authModule.loggedIn, authController.userDelete);
+
+router.get("/", authController.userReadAll);
+router.get("/profile", authModule.loggedIn, authController.userRead);
 
 module.exports = router;

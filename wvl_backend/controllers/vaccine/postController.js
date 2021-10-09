@@ -4,7 +4,53 @@ const jwtModule = require("../../modules/jwtModule");
 const statusCode = require("../../modules/statusCode");
 
 const postController = {
-    postUpload: async (req, res, next) => {
+    postReadAll: async (req, res, next) => {
+        try {
+            const result = await post
+                .find()
+                .populate("writer", "nickName profileImage");
+            if (!result) {
+                return res.status(statusCode.BAD_REQUEST).json({
+                    message: "데이터가 없습니다.",
+                });
+            }
+            res.status(statusCode.OK).json({
+                message: "게시물 전체 조회 성공",
+                data: result,
+            });
+        } catch (error) {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: "게시물 전체 조회 실패",
+                error: error,
+            });
+        }
+    },
+
+    postRead: async (req, res, next) => {
+        const { id } = req.params;
+
+        try {
+            const result = await post
+                .findById(id)
+                .populate("writer", "nickName profileImage");
+            if (!result) {
+                return res.status(statusCode.BAD_REQUEST).json({
+                    message: "데이터가 없습니다.",
+                });
+            }
+            res.status(statusCode.OK).json({
+                message: "게시물 조회 성공",
+                data: result,
+            });
+        } catch (error) {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: "게시물 조회 실패",
+                error: error,
+            });
+        }
+    },
+
+    postCreate: async (req, res, next) => {
         const userInfo = req.userInfo;
 
         const { title, content, tags, category } = req.body;
@@ -20,13 +66,13 @@ const postController = {
         try {
             const result = await postModel.save();
             res.status(statusCode.OK).json({
-                message: "게시글 저장 성공",
+                message: "게시물 생성 성공",
                 data: result,
             });
         } catch (error) {
             console.log(error);
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
-                message: "게시글 저장 실패",
+                message: "게시물 생성 실패",
             });
         }
     },
@@ -60,12 +106,12 @@ const postController = {
             );
 
             res.status(statusCode.OK).json({
-                message: "게시글 수정 성공",
+                message: "게시물 수정 성공",
                 data: result,
             });
         } catch (error) {
             return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
-                message: "게시글 수정 실패",
+                message: "게시물 수정 실패",
                 error: error,
             });
         }
@@ -98,12 +144,12 @@ const postController = {
         try {
             const result = await post.findByIdAndDelete(id);
             res.status(statusCode.OK).json({
-                message: "게시글 삭제 성공",
+                message: "게시물 삭제 성공",
                 data: result,
             });
         } catch (error) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
-                message: "게시글 삭제 실패",
+                message: "게시물 삭제 실패",
                 error: error,
             });
         }

@@ -60,9 +60,36 @@ const authController = {
         }
     },
 
+    userReadAll: async (req, res, next) => {
+        try {
+            const result = await user.find({}, { password: 0 });
+            res.status(statusCode.OK).json({
+                message: "회원 전체 조회 성공",
+                data: result,
+            });
+        } catch (error) {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: "회원 전체 조회 실패",
+            });
+        }
+    },
+
+    userRead: (req, res, next) => {
+        const userInfo = req.userInfo;
+        if (userInfo) {
+            res.status(statusCode.OK).json({
+                message: "회원 조회 성공",
+                data: userInfo,
+            });
+        } else {
+            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: "회원 조회 실패",
+            });
+        }
+    },
+
     userUpdate: async (req, res, next) => {
         const userInfo = req.userInfo;
-        const { id } = req.params;
         const { age, gender, degree, inoDate, profileImage } = req.body;
 
         if (!isNaN(age) || (isNaN(age) && Number(age) < 0)) {
@@ -72,35 +99,29 @@ const authController = {
         }
 
         try {
-            if (userInfo.id === id) {
-                const result = await user.findByIdAndUpdate(
-                    id,
-                    {
-                        age,
-                        gender,
-                        degree,
-                        inoDate: new Date.parse(inoDate).toISOString(), // 날짜 데이터 타입 문제
-                        profileImage,
-                        verified: true,
-                    },
-                    { new: true }
-                );
+            const result = await user.findByIdAndUpdate(
+                userInfo.id,
+                {
+                    age,
+                    gender,
+                    degree,
+                    inoDate: new Date.parse(inoDate).toISOString(), // 날짜 데이터 타입 문제
+                    profileImage,
+                    verified: true,
+                },
+                { new: true }
+            );
 
-                const payload = {
-                    nickName: result.nickName,
-                    verified: result.verified,
-                };
-                const token = jwtModule.create(payload);
+            const payload = {
+                nickName: result.nickName,
+                verified: result.verified,
+            };
+            const token = jwtModule.create(payload);
 
-                res.status(statusCode.OK).json({
-                    message: "회원정보 수정 완료",
-                    data: { result, token },
-                });
-            } else {
-                res.status(statusCode.CONFLICT).json({
-                    message: "수정할 권한이 없습니다.",
-                });
-            }
+            res.status(statusCode.OK).json({
+                message: "회원정보 수정 완료",
+                data: { result, token },
+            });
         } catch (error) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원정보 수정 실패",
@@ -111,20 +132,13 @@ const authController = {
 
     userDelete: async (req, res, next) => {
         const userInfo = req.userInfo;
-        const { id } = req.params;
 
         try {
-            if (userInfo.id === id) {
-                const result = await user.findByIdAndDelete(id);
-                res.status(statusCode.OK).json({
-                    message: "회원 탈퇴 완료",
-                    data: result,
-                });
-            } else {
-                res.status(statusCode.CONFLICT).json({
-                    message: "삭제할 권한이 없습니다.",
-                });
-            }
+            const result = await user.findByIdAndDelete(userInfo.id);
+            res.status(statusCode.OK).json({
+                message: "회원 탈퇴 완료",
+                data: result,
+            });
         } catch (error) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원 탈퇴 실패",
