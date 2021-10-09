@@ -20,13 +20,13 @@ const postController = {
         try {
             const result = await postModel.save();
             res.status(statusCode.OK).json({
-                message: "게시물 저장 성공",
+                message: "게시글 저장 성공",
                 data: result,
             });
         } catch (error) {
             console.log(error);
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
-                message: "게시물 저장 실패",
+                message: "게시글 저장 실패",
             });
         }
     },
@@ -101,12 +101,12 @@ const postController = {
         try {
             const result = await post.findByIdAndDelete(id);
             res.status(statusCode.OK).json({
-                message: "해당 게시물 삭제 성공",
+                message: "게시글 삭제 성공",
                 data: result,
             });
         } catch (error) {
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
-                message: "해당 게시물 삭제 실패",
+                message: "게시글 삭제 실패",
                 error: error,
             });
         }
