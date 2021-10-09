@@ -63,7 +63,13 @@ const authController = {
     userUpdate: async (req, res, next) => {
         const userInfo = req.userInfo;
         const { id } = req.params;
-        const { age, gender, degree, inodate, profileImage } = req.body;
+        const { age, gender, degree, inoDate, profileImage } = req.body;
+
+        if (!isNaN(age) || (isNaN(age) && Number(age) < 0)) {
+            res.status(statusCode.BAD_REQUEST).json({
+                message: "나이를 올바르게 입력해 주세요.",
+            });
+        }
 
         try {
             if (userInfo.id === id) {
@@ -73,7 +79,7 @@ const authController = {
                         age,
                         gender,
                         degree,
-                        inodate, // 날짜 데이터 타입 문제
+                        inoDate: new Date.parse(inoDate).toISOString(), // 날짜 데이터 타입 문제
                         profileImage,
                         verified: true,
                     },

@@ -8,7 +8,7 @@ const editModule = require("../../../modules/editModule");
 router.post("/signup", authController.signup);
 router.post("/signin", authController.signin);
 
-router.put("/profile/:id", editModule.loggedIn, authController.userUpdate);
+router.put("/profile", authModule.loggedIn, authController.userUpdate);
 router.delete("/profile/:id", authModule.loggedIn, authController.userDelete);
 
 module.exports = router;
