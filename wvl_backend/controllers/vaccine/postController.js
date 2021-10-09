@@ -1,6 +1,4 @@
 const post = require("../../models/post");
-const user = require("../../models/user");
-const jwtModule = require("../../modules/jwtModule");
 const statusCode = require("../../modules/statusCode");
 
 const postController = {
