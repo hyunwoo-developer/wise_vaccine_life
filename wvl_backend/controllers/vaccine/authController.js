@@ -90,7 +90,7 @@ const authController = {
 
     userUpdate: async (req, res, next) => {
         const userInfo = req.userInfo;
-        const img = req.file;
+
         const { age, gender, degree, inoDate, profileImage } = req.body;
 
         if (!isNaN(age) || (isNaN(age) && Number(age) < 0)) {
@@ -107,7 +107,7 @@ const authController = {
                     gender,
                     degree,
                     inoDate: new Date.parse(inoDate).toISOString(), // 날짜 데이터 타입 문제
-                    profileImage: img.location,
+                    profileImage,
                     verified: true,
                 },
                 { new: true }

@@ -8,12 +8,7 @@ const upload = require("../../../modules/awsUpload");
 router.post("/signup", authController.signup);
 router.post("/signin", authController.signin);
 
-router.put(
-    "/profile",
-    authModule.loggedIn,
-    upload.single("img"),
-    authController.userUpdate
-);
+router.put("/profile", authModule.loggedIn, authController.userUpdate);
 router.delete("/profile", authModule.loggedIn, authController.userDelete);
 
 router.get("/", authController.userReadAll);
