@@ -1,11 +1,13 @@
 const user = require("../../models/user");
 const jwtModule = require("../../modules/jwtModule");
 const statusCode = require("../../modules/statusCode");
-
+const bcrypt = require("bcrypt");
 const authController = {
+    // 회원가입
     signup: async (req, res, next) => {
         const { email, nickName, password } = req.body;
         try {
+            // 이메일 또는 닉네임이 이미 존재하는지 확인
             const result = await user.findOne({
                 $or: [{ email: email }, { nickName: nickName }],
             });
@@ -25,6 +27,7 @@ const authController = {
                 });
             }
         } catch (error) {
+            console.log(error);
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원가입 실패",
                 error: error,
@@ -32,17 +35,28 @@ const authController = {
         }
     },
 
+    // 로그인
     signin: async (req, res, next) => {
+        let bcryptPassword = null;
+        const saltRounds = 10;
         const { email, password } = req.body;
         try {
-            const result = await user.findOne({ email, password });
+            bcrypt.hash(password, saltRounds, function (err, hash) {
+                try {
+                    bcryptPassword = hash;
+                } catch (error) {
+                    console.log(error);
+                }
+            });
+            // 회원 중 이메일과 비밀번호가 맞는지 확인
+            const result = await user.findOne({ email, bcryptPassword });
             if (result) {
+                // 회원이 맞으면 페이로드에 닉네임과 verified를 넣음
                 const payload = {
                     nickName: result.nickName,
                     verified: result.verified,
                 };
-                const token = jwtModule.create(payload);
-                console.log(token);
+                const token = jwtModule.create(payload); // 페이로드를 담아 토큰 생성
                 res.status(statusCode.OK).json({
                     message: "로그인 성공",
                     accessToken: token,
@@ -53,13 +67,13 @@ const authController = {
                 });
             }
         } catch (error) {
-            console.log(error);
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "DB 서버 에러",
             });
         }
     },
 
+    // 회원 전체 조회 (통계용)
     readAllUser: async (req, res, next) => {
         try {
             const result = await user.find({}, { password: 0 });
@@ -74,6 +88,7 @@ const authController = {
         }
     },
 
+    // 회원(자신) 정보 조회
     readUser: (req, res, next) => {
         const userInfo = req.userInfo;
         if (userInfo) {
@@ -88,14 +103,16 @@ const authController = {
         }
     },
 
+    // 회원 정보 업데이트
     updateUser: async (req, res, next) => {
         const userInfo = req.userInfo;
-        const { age, gender, degree, inoDate, profileImage } = req.body;
+        const { type, age, gender, degree, inoDate, profileImage } = req.body;
 
         try {
             const result = await user.findByIdAndUpdate(
                 userInfo.id,
                 {
+                    type,
                     age,
                     gender,
                     degree,
@@ -125,6 +142,7 @@ const authController = {
         }
     },
 
+    // 회원 탈퇴
     deleteUser: async (req, res, next) => {
         const userInfo = req.userInfo;
 
