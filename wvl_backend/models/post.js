@@ -24,6 +24,7 @@ const postSchema = new Schema({
     ],
 });
 
+// 비밀번호를 데이터베이스에 암호화하여 저장
 postSchema.statics.checkAuth = async function (params) {
     const { postId, writerId } = params;
     try {

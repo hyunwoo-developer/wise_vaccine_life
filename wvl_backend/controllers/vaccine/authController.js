@@ -40,6 +40,7 @@ const authController = {
         let bcryptPassword = null;
         const saltRounds = 10;
         const { email, password } = req.body;
+        // plain text 비밀번호를 bcrypt로 암호화
         try {
             bcrypt.hash(password, saltRounds, function (err, hash) {
                 try {
@@ -48,7 +49,7 @@ const authController = {
                     console.log(error);
                 }
             });
-            // 회원 중 이메일과 비밀번호가 맞는지 확인
+            // 회원 중 이메일과 암호화된 비밀번호가 맞는지 확인
             const result = await user.findOne({ email, bcryptPassword });
             if (result) {
                 // 회원이 맞으면 페이로드에 닉네임과 verified를 넣음
@@ -112,13 +113,13 @@ const authController = {
             const result = await user.findByIdAndUpdate(
                 userInfo.id,
                 {
-                    type,
-                    age,
-                    gender,
-                    degree,
-                    inoDate: new Date(Date.parse(inoDate)), // 날짜 데이터 타입 문제
-                    profileImage,
-                    verified: true,
+                    type, // 백신 타입 : "화이자"
+                    age, // 나이: 24
+                    gender, // gender: "남자"
+                    degree, // 접종 차수: 1
+                    inoDate: new Date(Date.parse(inoDate)), // 접종 날짜: DATE(2021-09-03)타입
+                    profileImage, // 프로파일 이미지: "http://hyunwoodev.com"
+                    verified: true, // 회원 정보를 업데이트하면 verified를 true로 바꿔준다.
                 },
                 { new: true }
             );
@@ -127,6 +128,8 @@ const authController = {
                 nickName: result.nickName,
                 verified: result.verified,
             };
+
+            // 토큰을 새로 발급
             const token = jwtModule.create(payload);
 
             res.status(statusCode.OK).json({

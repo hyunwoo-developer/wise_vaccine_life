@@ -3,6 +3,7 @@ const jwtSecret = require("../config/jwtSecret.json");
 
 const jwtModule = {
     create: (payload) => {
+        // json web token 생성
         const option = {
             algorithm: "HS256",
             expiresIn: "30d",
@@ -14,6 +15,7 @@ const jwtModule = {
     },
 
     verify: (token) => {
+        // json web token 검증
         let decoded;
         try {
             decoded = jwt.verify(token, jwtSecret.secretKey);
