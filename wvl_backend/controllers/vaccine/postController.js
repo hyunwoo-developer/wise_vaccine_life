@@ -2,7 +2,7 @@ const post = require("../../models/post");
 const statusCode = require("../../modules/statusCode");
 
 const postController = {
-    postReadAll: async (req, res, next) => {
+    readAllPost: async (req, res, next) => {
         try {
             const result = await post
                 .find()
@@ -24,7 +24,7 @@ const postController = {
         }
     },
 
-    postRead: async (req, res, next) => {
+    readPost: async (req, res, next) => {
         const { id } = req.params;
 
         try {
@@ -48,7 +48,7 @@ const postController = {
         }
     },
 
-    postCreate: async (req, res, next) => {
+    createPost: async (req, res, next) => {
         const userInfo = req.userInfo;
 
         const { title, content, tags, category } = req.body;
@@ -75,7 +75,7 @@ const postController = {
         }
     },
 
-    postUpdate: async (req, res, next) => {
+    updatePost: async (req, res, next) => {
         const userInfo = req.userInfo;
 
         const { id } = req.params;
@@ -115,7 +115,7 @@ const postController = {
         }
     },
 
-    postDelete: async (req, res, next) => {
+    deletePost: async (req, res, next) => {
         const userInfo = req.userInfo;
 
         const { id } = req.params;

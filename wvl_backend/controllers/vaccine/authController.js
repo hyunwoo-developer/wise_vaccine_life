@@ -60,7 +60,7 @@ const authController = {
         }
     },
 
-    userReadAll: async (req, res, next) => {
+    readAllUser: async (req, res, next) => {
         try {
             const result = await user.find({}, { password: 0 });
             res.status(statusCode.OK).json({
@@ -74,7 +74,7 @@ const authController = {
         }
     },
 
-    userRead: (req, res, next) => {
+    readUser: (req, res, next) => {
         const userInfo = req.userInfo;
         if (userInfo) {
             res.status(statusCode.OK).json({
@@ -88,16 +88,9 @@ const authController = {
         }
     },
 
-    userUpdate: async (req, res, next) => {
+    updateUser: async (req, res, next) => {
         const userInfo = req.userInfo;
-
         const { age, gender, degree, inoDate, profileImage } = req.body;
-
-        if (!isNaN(age) || (isNaN(age) && Number(age) < 0)) {
-            res.status(statusCode.BAD_REQUEST).json({
-                message: "나이를 올바르게 입력해 주세요.",
-            });
-        }
 
         try {
             const result = await user.findByIdAndUpdate(
@@ -106,7 +99,7 @@ const authController = {
                     age,
                     gender,
                     degree,
-                    inoDate: new Date.parse(inoDate).toISOString(), // 날짜 데이터 타입 문제
+                    inoDate: new Date(Date.parse(inoDate)), // 날짜 데이터 타입 문제
                     profileImage,
                     verified: true,
                 },
@@ -124,6 +117,7 @@ const authController = {
                 data: { result, token },
             });
         } catch (error) {
+            console.log(error);
             res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원정보 수정 실패",
                 error: error,
@@ -131,7 +125,7 @@ const authController = {
         }
     },
 
-    userDelete: async (req, res, next) => {
+    deleteUser: async (req, res, next) => {
         const userInfo = req.userInfo;
 
         try {
