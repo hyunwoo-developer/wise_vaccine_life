@@ -41,15 +41,17 @@ postSchema.statics.checkAuth = async function (params) {
 postSchema.statics.checkCommentAuth = async function (params) {
     const { postId, commentId, writerId } = params;
     try {
-        const results = await this.findOne({ _id: postId });
-        const comments = results.comments;
-        for (let comment of comments) {
-            if (commentId === comment._id.toString()) {
-                if (writerId === comment.commentWriter.toString()) {
-                    return 1;
-                }
-            }
+        const result = await this.findOne({ _id: postId });
+        const idx = result.comments.findIndex(
+            // 댓글중 찾고자 하는 댓글의 인덱스를 리턴
+            (item) => item._id.toString() === commentId
+        );
+
+        // 댓글 작성자가 파라미터로 받은 작성자와 같을 경우 1을 리턴
+        if (writerId === result.comments[idx].commentWriter.toString()) {
+            return 1;
         }
+
         return -1;
     } catch (error) {
         return -2;

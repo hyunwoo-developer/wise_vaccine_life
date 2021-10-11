@@ -15,9 +15,9 @@ const commentController = {
                 {
                     $push: {
                         comments: {
-                            commentContent: content,
-                            commentWriter: userInfo.id,
-                            commentDate: new Date(),
+                            commentContent: content, // 댓글 내용
+                            commentWriter: userInfo.id, // 댓글 작성자
+                            commentDate: new Date(), // 댓글 작성 날짜
                         },
                     },
                 },
@@ -35,6 +35,7 @@ const commentController = {
             });
         }
     },
+
     // 댓글 수정
     updateComment: async (req, res, next) => {
         const userInfo = req.userInfo;
