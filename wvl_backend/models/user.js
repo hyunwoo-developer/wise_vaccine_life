@@ -17,6 +17,7 @@ const userSchema = new Schema({
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+// 비밀번호를 데이터베이스에 암호화하여 저장
 userSchema.pre("save", function (next) {
     var user = this;
     if (user.isModified("password")) {

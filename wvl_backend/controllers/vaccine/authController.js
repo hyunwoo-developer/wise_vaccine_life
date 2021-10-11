@@ -12,7 +12,7 @@ const authController = {
                 $or: [{ email: email }, { nickName: nickName }],
             });
             if (result) {
-                res.status(statusCode.BAD_REQUEST).json({
+                return res.status(statusCode.BAD_REQUEST).json({
                     message: "중복된 이메일 혹은 닉네임 존재합니다.",
                 });
             } else {
@@ -22,13 +22,12 @@ const authController = {
                 signUpModel.nickName = nickName;
                 signUpModel.password = password;
                 await signUpModel.save();
-                res.status(statusCode.OK).json({
+                return res.status(statusCode.OK).json({
                     message: "회원가입 성공",
                 });
             }
         } catch (error) {
-            console.log(error);
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원가입 실패",
                 error: error,
             });
@@ -58,17 +57,17 @@ const authController = {
                     verified: result.verified,
                 };
                 const token = jwtModule.create(payload); // 페이로드를 담아 토큰 생성
-                res.status(statusCode.OK).json({
+                return res.status(statusCode.OK).json({
                     message: "로그인 성공",
                     accessToken: token,
                 });
             } else {
-                res.status(statusCode.BAD_REQUEST).json({
+                return res.status(statusCode.BAD_REQUEST).json({
                     message: "로그인 실패",
                 });
             }
         } catch (error) {
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "DB 서버 에러",
             });
         }
@@ -78,12 +77,12 @@ const authController = {
     readAllUser: async (req, res, next) => {
         try {
             const result = await user.find({}, { password: 0 });
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "회원 전체 조회 성공",
                 data: result,
             });
         } catch (error) {
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원 전체 조회 실패",
             });
         }
@@ -93,7 +92,7 @@ const authController = {
     readUser: (req, res, next) => {
         const userInfo = req.userInfo;
         if (userInfo) {
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "회원 조회 성공",
                 data: userInfo,
             });
@@ -133,13 +132,12 @@ const authController = {
             // 토큰을 새로 발급
             const token = jwtModule.create(payload);
 
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "회원정보 수정 완료",
                 data: { result, token },
             });
         } catch (error) {
-            console.log(error);
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원정보 수정 실패",
                 error: error,
             });
@@ -152,12 +150,12 @@ const authController = {
 
         try {
             const result = await user.findByIdAndDelete(userInfo.id);
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "회원 탈퇴 완료",
                 data: result,
             });
         } catch (error) {
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원 탈퇴 실패",
                 error: error,
             });

@@ -14,12 +14,12 @@ const postController = {
                     message: "데이터가 없습니다.",
                 });
             }
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "게시물 전체 조회 성공",
                 data: result,
             });
         } catch (error) {
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "게시물 전체 조회 실패",
                 error: error,
             });
@@ -40,12 +40,12 @@ const postController = {
                     message: "데이터가 없습니다.",
                 });
             }
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "게시물 조회 성공",
                 data: result,
             });
         } catch (error) {
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "게시물 조회 실패",
                 error: error,
             });
@@ -68,13 +68,13 @@ const postController = {
 
         try {
             const result = await postModel.save();
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "게시물 생성 성공",
                 data: result,
             });
         } catch (error) {
             console.log(error);
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "게시물 생성 실패",
             });
         }
@@ -112,7 +112,7 @@ const postController = {
                 { new: true }
             );
 
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "게시물 수정 성공",
                 data: result,
             });
@@ -143,7 +143,7 @@ const postController = {
                     message: "접근 권한이 없습니다.",
                 });
             } else if (ownResult === -2) {
-                res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                     message: "DB 서버 에러",
                 });
             }
@@ -154,12 +154,12 @@ const postController = {
         // 게시물의 작성자일 경우
         try {
             const result = await post.findByIdAndDelete(id);
-            res.status(statusCode.OK).json({
+            return res.status(statusCode.OK).json({
                 message: "게시물 삭제 성공",
                 data: result,
             });
         } catch (error) {
-            res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "게시물 삭제 실패",
                 error: error,
             });

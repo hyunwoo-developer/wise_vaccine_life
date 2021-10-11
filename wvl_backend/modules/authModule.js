@@ -31,7 +31,6 @@ const authModule = {
         try {
             userInfo = await user.findOne({ nickName: decoded.nickName });
         } catch (error) {
-            console.log(error);
             return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "유효하지 않은 유저입니다.",
             });
@@ -74,7 +73,6 @@ const authModule = {
         try {
             userInfo = await user.findOne({ nickName: decoded.nickName });
         } catch (error) {
-            console.log(error);
             return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "유효하지 않은 유저입니다.",
             });

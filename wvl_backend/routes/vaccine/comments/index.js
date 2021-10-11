@@ -5,5 +5,9 @@ const commentController = require("../../../controllers/vaccine/commentControlle
 const authModule = require("../../../modules/authModule");
 
 router.post("/:id", authModule.checkVerified, commentController.createComment);
-
+router.delete(
+    "/:id/:commentid",
+    authModule.checkVerified,
+    commentController.deleteComment
+);
 module.exports = router;

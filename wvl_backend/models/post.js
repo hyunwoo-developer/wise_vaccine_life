@@ -24,7 +24,6 @@ const postSchema = new Schema({
     ],
 });
 
-// 비밀번호를 데이터베이스에 암호화하여 저장
 postSchema.statics.checkAuth = async function (params) {
     const { postId, writerId } = params;
     try {
@@ -34,6 +33,24 @@ postSchema.statics.checkAuth = async function (params) {
             return -1;
         }
         return 1;
+    } catch (error) {
+        return -2;
+    }
+};
+
+postSchema.statics.checkCommentAuth = async function (params) {
+    const { postId, commentId, writerId } = params;
+    try {
+        const results = await this.findOne({ _id: postId });
+        const comments = results.comments;
+        for (let comment of comments) {
+            if (commentId === comment._id.toString()) {
+                if (writerId === comment.commentWriter.toString()) {
+                    return 1;
+                }
+            }
+        }
+        return -1;
     } catch (error) {
         return -2;
     }
