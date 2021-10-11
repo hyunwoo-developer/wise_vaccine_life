@@ -19,7 +19,7 @@ const postSchema = new Schema({
                 ref: "user",
             },
             commentContent: { type: String, default: null },
-            commentDate: { type: Date, default: new Date() },
+            commentDate: { type: Date, default: new Date(), required: true },
         },
     ],
 });
