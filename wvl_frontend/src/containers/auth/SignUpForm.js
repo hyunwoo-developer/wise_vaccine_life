@@ -15,7 +15,7 @@ function SignUpForm() {
         nickName: "",
     });
 
-    const onChagenInput = (event) => {
+    const onChangeInput = (event) => {
         const { name, value } = event.target;
         setForm({
             ...form,
@@ -81,7 +81,7 @@ function SignUpForm() {
     return (
         <AuthForm
             onClickSubmit={onClickSubmit}
-            onChagenInput={onChagenInput}
+            onChangeInput={onChangeInput}
             type="register"
             error={error}
             form={form}

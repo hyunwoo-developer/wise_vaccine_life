@@ -60,7 +60,7 @@ const textMap = {
     register: "회원가입",
 };
 
-const AuthForm = ({ type, form, onChagenInput, onClickSubmit, error }) => {
+const AuthForm = ({ type, form, onChangeInput, onClickSubmit, error }) => {
     const text = textMap[type];
     return (
         <AuthFormBlock>
@@ -70,7 +70,7 @@ const AuthForm = ({ type, form, onChagenInput, onClickSubmit, error }) => {
                     autoComplete="email"
                     name="email"
                     placeholder="이메일"
-                    onChange={onChagenInput}
+                    onChange={onChangeInput}
                     value={form.email}
                 />
                 {type === "register" && (
@@ -79,7 +79,7 @@ const AuthForm = ({ type, form, onChagenInput, onClickSubmit, error }) => {
                         name="nickName"
                         placeholder="닉네임"
                         value={form.nickName}
-                        onChange={onChagenInput}
+                        onChange={onChangeInput}
                     />
                 )}
                 <StyledInput
@@ -87,7 +87,7 @@ const AuthForm = ({ type, form, onChagenInput, onClickSubmit, error }) => {
                     placeholder="비밀번호"
                     type="password"
                     value={form.password}
-                    onChange={onChagenInput}
+                    onChange={onChangeInput}
                 />
                 {type === "register" && (
                     <StyledInput
@@ -96,7 +96,7 @@ const AuthForm = ({ type, form, onChagenInput, onClickSubmit, error }) => {
                         placeholder="비밀번호 확인"
                         type="password"
                         value={form.passwordConfirm}
-                        onChange={onChagenInput}
+                        onChange={onChangeInput}
                     />
                 )}
                 {error && <ErrorMessage>{error}</ErrorMessage>}

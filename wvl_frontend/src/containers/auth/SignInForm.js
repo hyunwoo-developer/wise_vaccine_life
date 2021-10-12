@@ -8,7 +8,7 @@ import client from "../../libs/api/_client";
 function SignInForm() {
     const history = useHistory();
 
-    const { setAuthInfo } = useContext(AuthContext);
+    const { authInfo, setAuthInfo } = useContext(AuthContext);
 
     const [error, setError] = useState("");
     const [form, setForm] = useState({
@@ -16,7 +16,7 @@ function SignInForm() {
         password: "",
     });
 
-    const onChagenInput = (event) => {
+    const onChangeInput = (event) => {
         const { name, value } = event.target;
         setForm({
             ...form,
@@ -56,7 +56,7 @@ function SignInForm() {
             type="login"
             onClickSubmit={onClickSubmit}
             form={form}
-            onChagenInput={onChagenInput}
+            onChangeInput={onChangeInput}
             error={error}
         />
     );
