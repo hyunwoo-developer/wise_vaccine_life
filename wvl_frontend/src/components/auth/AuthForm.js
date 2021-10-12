@@ -54,7 +54,7 @@ const ButtonWithMarginTop = styled(ButtonComponent)`
 const ErrorMessage = styled.div`
     color: red;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 2rem;
     margin-top: 2rem;
 `;
