@@ -36,34 +36,32 @@ const authController = {
 
     // 로그인
     signin: async (req, res, next) => {
-        let bcryptPassword = null;
-        const saltRounds = 10;
         const { email, password } = req.body;
-        // plain text 비밀번호를 bcrypt로 암호화
+
         try {
-            bcrypt.hash(password, saltRounds, function (err, hash) {
-                try {
-                    bcryptPassword = hash;
-                } catch (error) {
-                    console.log(error);
-                }
-            });
-            // 회원 중 이메일과 암호화된 비밀번호가 맞는지 확인
-            const result = await user.findOne({ email, bcryptPassword });
-            if (result) {
-                // 회원이 맞으면 페이로드에 닉네임과 verified를 넣음
-                const payload = {
-                    nickName: result.nickName,
-                    verified: result.verified,
-                };
-                const token = jwtModule.create(payload); // 페이로드를 담아 토큰 생성
-                return res.status(statusCode.OK).json({
-                    message: "로그인 성공",
-                    accessToken: token,
+            const result = await user.findOne({ email });
+            if (!result) {
+                return res.status(statusCode.BAD_REQUEST).json({
+                    message: "Email이 존재하지 않습니다.",
                 });
             } else {
-                return res.status(statusCode.BAD_REQUEST).json({
-                    message: "로그인 실패",
+                result.comparePassword(password, (err, isMatch) => {
+                    if (isMatch) {
+                        // 회원이 맞으면 페이로드에 닉네임과 verified를 넣음
+                        const payload = {
+                            nickName: result.nickName,
+                            verified: result.verified,
+                        };
+                        const token = jwtModule.create(payload); // 페이로드를 담아 토큰 생성
+                        return res.status(statusCode.OK).json({
+                            message: "로그인 성공",
+                            accessToken: token,
+                        });
+                    } else {
+                        return res.status(statusCode.BAD_REQUEST).json({
+                            message: "비밀번호가 틀렸습니다.",
+                        });
+                    }
                 });
             }
         } catch (error) {

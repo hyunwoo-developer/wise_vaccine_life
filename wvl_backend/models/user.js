@@ -36,4 +36,15 @@ userSchema.pre("save", function (next) {
     }
 });
 
+// 비밀번호를 데이터베이스의 비밀번호와 비교
+userSchema.methods.comparePassword = function (plainPassword, cb) {
+    bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
+        if (err) {
+            return cb(err);
+        } else {
+            cb(null, isMatch);
+        }
+    });
+};
+
 module.exports = mongoose.model("user", userSchema);
