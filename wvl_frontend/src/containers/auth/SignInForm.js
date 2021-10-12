@@ -40,7 +40,7 @@ function SignInForm() {
                 ] = `${accessToken}`;
                 const result = await client.get("/vaccine/auth/profile");
                 console.log(result.data.data);
-                setAuthInfo({ isLoggedIn: true, authInfo: result.data.data });
+                setAuthInfo({ isLoggedIn: true, userInfo: result.data.data });
                 history.push("/");
             }
         } catch (error) {
