@@ -8,14 +8,14 @@ const AuthFormBlock = styled.div`
     h3 {
         margin: 0;
         color: ${palette.gray[8]};
-        margin-bottom: 2rem;
-        font-size: 1.5rem;
+        margin-bottom: 3rem;
+        font-size: 1.8rem;
         font-weight: bolder;
     }
 `;
 
 const StyledInput = styled.input`
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     border: none;
     border-bottom: 1px solid ${palette.gray[5]};
     padding-bottom: 0.5rem;
@@ -28,7 +28,7 @@ const StyledInput = styled.input`
     }
 
     & + & {
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
 `;
 
@@ -46,13 +46,17 @@ const Footer = styled.div`
 
 const ButtonWithMarginTop = styled(ButtonComponent)`
     margin-top: 2rem;
+    font-size: 1.5rem;
+    height: 3.5rem;
+    background-color: #ed6652;
 `;
 
 const ErrorMessage = styled.div`
     color: red;
     text-align: center;
-    font-size: 0.875rem;
-    margin-top: 1rem;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin-top: 2rem;
 `;
 
 const textMap = {

@@ -12,6 +12,11 @@ import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import AddProfilePage from "./pages/AddProfilePage";
+import {
+    ToastsContainer,
+    ToastsStore,
+    ToastsContainerPosition,
+} from "react-toasts";
 
 function App() {
     // const dispatch = useDispatch();
@@ -52,6 +57,10 @@ function App() {
             {/* <Route component={RegisterPage} path="/register" /> */}
             {/* <Route component={WritePage} path="/write" /> */}
             {/* <Route component={PostPage} path="/@:username/:postId" /> */}
+            <ToastsContainer
+                position={ToastsContainerPosition.BOTTOM_CENTER}
+                store={ToastsStore}
+            />
         </>
     );
 }

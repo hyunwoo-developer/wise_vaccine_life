@@ -10,17 +10,17 @@ import ProfileAvatar from "../../assets/global/profile.png";
 const NavbarWrap = styled.div`
     position: fixed;
     width: 100%;
-    background: white;
+    background: #10345f;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
 
 const Wrapper = styled(Responsive)`
-    height: 4rem;
+    height: 6rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-
+    user-select: none;
     .logo {
         font-size: 1.125rem;
         font-weight: 800;
@@ -37,7 +37,7 @@ const Wrapper = styled(Responsive)`
 `;
 
 const StyledLogo = styled.img`
-    height: 20px;
+    height: 60px;
 `;
 
 const Spacer = styled.div`
@@ -46,7 +46,7 @@ const Spacer = styled.div`
 
 const StyledLink = styled(Link)`
     text-decoration: none;
-    color: #555555;
+    color: #ffffff;
     font-size: 1.3rem;
     cursor: pointer;
     & + & {
@@ -56,7 +56,7 @@ const StyledLink = styled(Link)`
 
 const ProfileText = styled.div`
     text-decoration: none;
-    color: #555555;
+    color: #ffffff;
     font-size: 1.3rem;
 `;
 
@@ -100,7 +100,7 @@ const ProfileItem = styled.div`
     }
 `;
 
-function NavbarComponent({ authInfo, onClickProfileImg, visible }) {
+function NavbarComponent({ authInfo, onClickProfileImg, visible, logout }) {
     return (
         <>
             <NavbarWrap>
@@ -132,7 +132,9 @@ function NavbarComponent({ authInfo, onClickProfileImg, visible }) {
                                         <ProfileItem>
                                             회원 정보 변경
                                         </ProfileItem>
-                                        <ProfileItem>로그아웃</ProfileItem>
+                                        <ProfileItem onClick={logout}>
+                                            로그아웃
+                                        </ProfileItem>
                                     </ProfileBoard>
                                 )}
                             </ProfileWrap>

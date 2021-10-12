@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import AuthForm from "../../components/auth/AuthForm";
 import client from "../../libs/api/_client";
-
+import { ToastsStore } from "react-toasts";
 function SignUpForm() {
     const history = useHistory();
 
@@ -22,9 +22,19 @@ function SignUpForm() {
             [name]: value,
         });
 
+        if (name === "email") {
+            const reg_email =
+                /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+            if (!reg_email.test(value)) {
+                setError("이메일 형식이 잘못되었습니다.");
+            } else {
+                setError("");
+            }
+        }
+
         if (name === "passwordConfirm") {
             if (form.password === value && form.password.length > 0) {
-                setError("비밀번호가 일치합니다.");
+                setError("비밀번호 보안 등급: 강함");
             } else {
                 setError("비밀번호가 서로 다릅니다, 다시 입력해주세요.");
             }
@@ -37,7 +47,7 @@ function SignUpForm() {
                 form.passwordConfirm === value &&
                 form.passwordConfirm.length > 0
             ) {
-                setError("비밀번호가 일치합니다.");
+                setError("비밀번호 보안 등급: 강함");
             } else {
                 if (!reg.test(value)) {
                     setError(
@@ -64,6 +74,7 @@ function SignUpForm() {
                 });
 
                 if (response.status === 200) {
+                    ToastsStore.success("회원가입 성공");
                     console.log("회원가입 성공");
                     history.goBack();
                 }
