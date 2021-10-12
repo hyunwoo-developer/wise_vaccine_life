@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import AuthForm from "../../components/auth/AuthForm";
@@ -21,6 +21,33 @@ function SignUpForm() {
             ...form,
             [name]: value,
         });
+
+        if (name === "passwordConfirm") {
+            if (form.password === value && form.password.length > 0) {
+                setError("비밀번호가 일치합니다.");
+            } else {
+                setError("비밀번호가 서로 다릅니다, 다시 입력해주세요.");
+            }
+        }
+
+        if (name === "password") {
+            const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+            if (
+                form.passwordConfirm === value &&
+                form.passwordConfirm.length > 0
+            ) {
+                setError("비밀번호가 일치합니다.");
+            } else {
+                if (!reg.test(value)) {
+                    setError(
+                        "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다."
+                    );
+                    return;
+                }
+                setError("비밀번호가 서로 다릅니다, 다시 입력해주세요.");
+            }
+        }
     };
 
     const onClickSubmit = async (e) => {
