@@ -7,7 +7,9 @@ import DropDown from "../../common/dropdown/DropDown";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const EditProfileWrap = styled(Responsive)``;
+const EditProfileWrap = styled(Responsive)`
+    margin-top: 2rem;
+`;
 
 const EditLabelWrap = styled.div`
     margin-bottom: 2rem;
@@ -57,7 +59,7 @@ function EditProfile({ onClickAvatar }) {
             </EditItemBlock>
             <EditItemBlock>
                 <EditLabelWrap>
-                    <BoldLabel>나이 입력하세요</BoldLabel>
+                    <BoldLabel>나이 입력</BoldLabel>
                 </EditLabelWrap>
                 <EditInput type="number" />
             </EditItemBlock>

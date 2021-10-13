@@ -34,7 +34,7 @@ function SignUpForm() {
 
         if (name === "passwordConfirm") {
             if (form.password === value && form.password.length > 0) {
-                setError("비밀번호 보안 등급: 강함");
+                setError("");
             } else {
                 setError("비밀번호가 서로 다릅니다, 다시 입력해주세요.");
             }
@@ -47,7 +47,7 @@ function SignUpForm() {
                 form.passwordConfirm === value &&
                 form.passwordConfirm.length > 0
             ) {
-                setError("비밀번호 보안 등급: 강함");
+                setError("");
             } else {
                 if (!reg.test(value)) {
                     setError(

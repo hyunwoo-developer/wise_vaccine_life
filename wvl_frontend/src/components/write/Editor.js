@@ -5,6 +5,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const EditorWrapper = styled.div`
+    margin-top: 1rem;
     padding-top: 2rem;
     padding-bottom: 3rem;
 `;
@@ -13,15 +14,19 @@ const TitleInput = styled.input`
     font-size: 2rem;
     font-weight: bolder;
     outline: none;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     border: none;
     border-bottom: 1px solid ${palette.gray[4]};
     margin-bottom: 2rem;
     width: 100%;
     box-sizing: border-box;
+    background-color: #f0f2f5;
 `;
 
 const QuillWrapper = styled.div`
+    margin-top: 1rem;
     .ql-editor {
         padding: 1rem 0;
         text-indent: 10px;

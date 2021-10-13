@@ -3,6 +3,7 @@ import styled from "styled-components";
 import DropDown from "../common/dropdown/DropDown";
 
 const DropDownWrap = styled.div`
+    margin-top: 3rem;
     width: 20rem;
 `;
 

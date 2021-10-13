@@ -5,7 +5,7 @@ import palette from "../../libs/styles/palette";
 const TagBoxWrapper = styled.div`
     width: 100%;
     border-top: 1px solid ${palette.gray[2]};
-    padding-top: 2rem;
+    padding-top: 1rem;
 
     h4 {
         font-size: 1.5rem;
@@ -17,11 +17,11 @@ const TagBoxWrapper = styled.div`
 `;
 
 const TagForm = styled.form`
-    border-radius: 4px;
+    border-radius: 1px;
     overflow: hidden;
     display: flex;
     width: 256px;
-    border: 1px solid ${palette.gray[9]};
+    border: 1px solid ${palette.gray[4]};
     input,
     button {
         outline: none;
@@ -122,6 +122,7 @@ function TagBox({ onChangeTags, tags }) {
     return (
         <TagBoxWrapper>
             <h4>태그</h4>
+            <br />
             <TagForm onSubmit={onSubmit}>
                 <input
                     placeholder="태그를 입력하세요"
