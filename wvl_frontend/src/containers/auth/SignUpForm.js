@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import AuthForm from "../../components/auth/AuthForm";

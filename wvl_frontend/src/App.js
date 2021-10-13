@@ -17,6 +17,7 @@ import {
     ToastsStore,
     ToastsContainerPosition,
 } from "react-toasts";
+import WirtePage from "./pages/WritePage";
 
 function App() {
     // const dispatch = useDispatch();
@@ -55,7 +56,7 @@ function App() {
             <Route component={AddProfilePage} exact path="/addprofile" />
 
             {/* <Route component={RegisterPage} path="/register" /> */}
-            {/* <Route component={WritePage} path="/write" /> */}
+            <Route component={WirtePage} path="/write" />
             {/* <Route component={PostPage} path="/@:username/:postId" /> */}
             <ToastsContainer
                 position={ToastsContainerPosition.BOTTOM_CENTER}

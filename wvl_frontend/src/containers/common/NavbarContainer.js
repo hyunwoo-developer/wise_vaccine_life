@@ -13,10 +13,10 @@ function NavbarContainer() {
         setVisible(!visible);
     };
 
-    const logout = () => {
+    const onClickLogout = () => {
         localStorage.removeItem("accessToken");
-        setAuthInfo({ isLoggedIn: true });
-        history.go();
+        setAuthInfo({ isLoggedIn: false });
+        history.push("/");
     };
 
     console.log(authInfo);
@@ -25,7 +25,7 @@ function NavbarContainer() {
             onClickProfileImg={onClickProfileImg}
             visible={visible}
             authInfo={authInfo}
-            logout={logout}
+            onClickLogout={onClickLogout}
         />
     );
 }

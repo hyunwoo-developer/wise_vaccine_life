@@ -5,6 +5,7 @@ import palette from "../../libs/styles/palette";
 import ButtonComponent from "../common/ButtonComponent";
 
 const AuthFormBlock = styled.div`
+    box-sizing: border-box;
     h3 {
         margin: 0;
         color: ${palette.gray[8]};
