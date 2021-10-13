@@ -6,13 +6,26 @@ const PostProvider = ({ children }) => {
         tags: [],
         title: "",
         body: "",
+        category: "",
+        originalPostId: "",
     });
+
+    const resetPost = () => {
+        setPostInfo({
+            tags: [],
+            title: "",
+            body: "",
+            category: "",
+            originalPostId: "",
+        });
+    };
 
     return (
         <PostContext.Provider
             value={{
                 postInfo,
                 setPostInfo,
+                resetPost,
             }}
         >
             {children}

@@ -106,6 +106,7 @@ function NavbarComponent({
     onClickProfileImg,
     visible,
     onClickLogout,
+    onClickEditProfile,
 }) {
     return (
         <>
@@ -135,7 +136,9 @@ function NavbarComponent({
                                 </ProfileImageWrap>
                                 {visible && (
                                     <ProfileBoard>
-                                        <ProfileItem>
+                                        <ProfileItem
+                                            onClick={onClickEditProfile}
+                                        >
                                             회원 정보 변경
                                         </ProfileItem>
                                         <ProfileItem onClick={onClickLogout}>

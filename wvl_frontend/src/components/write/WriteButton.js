@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import ButtonComponent from "../common/ButtonComponent";
 import palette from "../../libs/styles/palette";
 import { BsPlusLg } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
-
+//=============
+import PostContext from "../../context/PostContext";
+//================
 const StyledButton = styled(ButtonComponent)`
     width: 4rem;
     height: 4rem;
@@ -24,10 +26,22 @@ const StyledIcon = styled(BsPlusLg)`
 `;
 
 function WriteButton() {
+    //=======================================
+    const { postInfo, setPostInfo } = useContext(PostContext);
+    //=======================================
+
     const history = useHistory();
     console.log(history);
     return (
-        <StyledButton onClick={() => history.push("/write")}>
+        <StyledButton
+            onClick={() => {
+                setPostInfo({
+                    ...postInfo,
+                    originalPostId: "616672fbc68dcdfc11ec2f66",
+                });
+                history.push("/write");
+            }}
+        >
             <StyledIcon />
         </StyledButton>
     );

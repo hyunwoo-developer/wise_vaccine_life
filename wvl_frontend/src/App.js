@@ -11,13 +11,13 @@ import { getProfile } from "./modules/user";
 import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
-import AddProfilePage from "./pages/AddProfilePage";
+import EditProfilePage from "./pages/EditProfilePage";
 import {
     ToastsContainer,
     ToastsStore,
     ToastsContainerPosition,
 } from "react-toasts";
-import WirtePage from "./pages/WritePage";
+import WritePage from "./pages/WritePage";
 
 function App() {
     // const dispatch = useDispatch();
@@ -53,10 +53,10 @@ function App() {
             <Route component={HomePage} path={["/@:username", "/"]} exact />
             <Route component={SignInPage} exact path="/signin" />
             <Route component={SignUpPage} exact path="/signup" />
-            <Route component={AddProfilePage} exact path="/addprofile" />
+            <Route component={EditProfilePage} exact path="/edit/profile" />
 
             {/* <Route component={RegisterPage} path="/register" /> */}
-            <Route component={WirtePage} path="/write" />
+            <Route component={WritePage} path="/write" />
             {/* <Route component={PostPage} path="/@:username/:postId" /> */}
             <ToastsContainer
                 position={ToastsContainerPosition.BOTTOM_CENTER}

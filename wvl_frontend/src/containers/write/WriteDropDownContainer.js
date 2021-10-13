@@ -5,6 +5,7 @@ import PostContext from "../../context/PostContext";
 function WriteDropDownContainer() {
     const options = ["후기", "꿀팁", "기타"];
     const { postInfo, setPostInfo } = useContext(PostContext);
+    const defaultOption = postInfo.category;
 
     const onChangeDropDown = (payload) => {
         setPostInfo({
@@ -14,7 +15,12 @@ function WriteDropDownContainer() {
     };
 
     return (
-        <WriteDropDown onChangeDropDown={onChangeDropDown} options={options} />
+        <WriteDropDown
+            onChangeDropDown={onChangeDropDown}
+            defaultOption={defaultOption}
+            options={options}
+            postInfo={postInfo}
+        />
     );
 }
 

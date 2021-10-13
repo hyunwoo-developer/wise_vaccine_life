@@ -13,19 +13,25 @@ function NavbarContainer() {
         setVisible(!visible);
     };
 
+    const onClickEditProfile = () => {
+        history.push("/edit/profile");
+        setVisible(false);
+    };
+
     const onClickLogout = () => {
         localStorage.removeItem("accessToken");
         setAuthInfo({ isLoggedIn: false });
         history.push("/");
+        setVisible(false);
     };
 
-    console.log(authInfo);
     return (
         <NavbarComponent
             onClickProfileImg={onClickProfileImg}
             visible={visible}
             authInfo={authInfo}
             onClickLogout={onClickLogout}
+            onClickEditProfile={onClickEditProfile}
         />
     );
 }

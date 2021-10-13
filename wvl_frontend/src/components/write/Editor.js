@@ -30,9 +30,9 @@ const QuillWrapper = styled.div`
         line-height: 1.5;
         background-color: white;
     }
-    .ql-editor.ql-blank:before {
+    /* .ql-editor.ql-blank:before {
         left: 0px;
-    }
+    } */
 `;
 
 function Editor({ onChangeField, body, title }) {
@@ -92,9 +92,11 @@ function Editor({ onChangeField, body, title }) {
                     modules={modules}
                     formats={formats}
                     value={body || ""}
-                    onChange={(content, delta, source, editor) =>
-                        onChangeBody(editor.getHTML())
-                    }
+                    onChange={(content, delta, source, editor) => {
+                        if (source === "user") {
+                            onChangeBody(editor.getHTML());
+                        }
+                    }}
                 />
             </QuillWrapper>
         </EditorWrapper>
