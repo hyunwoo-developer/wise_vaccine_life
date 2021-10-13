@@ -12,6 +12,7 @@ const NavbarWrap = styled.div`
     width: 100%;
     background: #10345f;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+    z-index: 1;
 `;
 
 const Wrapper = styled(Responsive)`

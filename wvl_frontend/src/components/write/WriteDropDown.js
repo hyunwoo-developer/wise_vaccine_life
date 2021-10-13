@@ -20,10 +20,14 @@ const StyledDropDown = styled(DropDown)`
     }
 `;
 
-function WriteDropDown({ options, defaultOption }) {
+function WriteDropDown({ options, defaultOption, onChangeDropDown }) {
     return (
         <DropDownWrap>
-            <StyledDropDown options={options} defaultOption={defaultOption} />
+            <StyledDropDown
+                options={options}
+                defaultOption={defaultOption}
+                onChangeDropDown={onChangeDropDown}
+            />
         </DropDownWrap>
     );
 }

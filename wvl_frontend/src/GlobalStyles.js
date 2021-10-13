@@ -42,7 +42,7 @@ const GlobalStyles = createGlobalStyle`
   };
 
   .toast {
-  color: #10345f !important;
+  color: white !important;
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 22px;

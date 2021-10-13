@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import Editor from "../../components/write/Editor";
 import PostContext from "../../context/PostContext";
@@ -12,6 +12,7 @@ function EditorContainer() {
             ...postInfo,
             [key]: value,
         });
+        console.log(postInfo);
     };
 
     return <Editor title={title} body={body} onChangeField={onChangeField} />;
