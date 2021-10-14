@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import AuthForm from "../../components/auth/AuthForm";
 import client from "../../libs/api/_client";
 import { ToastsStore } from "react-toasts";
+
 function SignUpForm() {
     const history = useHistory();
 

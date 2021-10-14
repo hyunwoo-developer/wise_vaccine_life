@@ -1,31 +1,47 @@
 import React, { useContext } from "react";
 import EditActionButtons from "../../../components/auth/profile/EditActionButtons";
 import AuthContext from "../../../context/AuthContext";
+import ProfileContext from "../../../context/ProfileContext";
 import client from "../../../libs/api/_client";
 
+import { ToastsStore } from "react-toasts";
+import { useHistory } from "react-router";
 function EditActionButtonContainer() {
+    const history = useHistory();
     const { authInfo, setAuthInfo } = useContext(AuthContext);
-
+    const { profileInfo, setProfileInfo } = useContext(ProfileContext);
     const onEdit = async () => {
         try {
-            const response = await client.put("vaccine/auth/profile");
-            console.log("response: ", response);
-            const result = response.data.data;
-            console.log("result: ", result);
-            const { age, gender, type, degree, inoDate } = result;
-            setAuthInfo({
-                ...authInfo,
-                age,
-                gender,
-                type,
-                degree,
-                inoDate,
+            const response = await client.put("vaccine/auth/profile", {
+                age: profileInfo.age,
+                gender: profileInfo.gender,
+                type: profileInfo.type,
+                degree: profileInfo.degree,
+                inoDate: profileInfo.inoDate,
+                imgUrl: profileInfo.imgURL,
             });
+
+            if (response.status === 200) {
+                setAuthInfo({
+                    ...authInfo,
+                    userInfo: {
+                        ...authInfo.userInfo,
+                        age: profileInfo.age,
+                        gender: profileInfo.gender,
+                        type: profileInfo.type,
+                        degree: profileInfo.degree,
+                        imgURL: profileInfo.imgURL,
+                        inoDate: profileInfo.inoDate,
+                    },
+                });
+                ToastsStore.success("회원정보 수정 성공!");
+                history.push("/");
+            }
         } catch (error) {
-            console.log("회원 정보 변경 에러: ", error);
+            console.log(error);
         }
     };
-    return <EditActionButtons />;
+    return <EditActionButtons onEdit={onEdit} />;
 }
 
 export default EditActionButtonContainer;

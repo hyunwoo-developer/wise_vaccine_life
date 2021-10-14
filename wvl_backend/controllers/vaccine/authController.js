@@ -104,8 +104,8 @@ const authController = {
     // 회원 정보 업데이트
     updateUser: async (req, res, next) => {
         const userInfo = req.userInfo;
-        const img = req.file;
-        const { type, age, gender, degree, inoDate, profileImage } = req.body;
+
+        const { type, age, gender, degree, inoDate, imgUrl } = req.body;
 
         try {
             const result = await user.findByIdAndUpdate(
@@ -116,7 +116,7 @@ const authController = {
                     gender, // gender: "남자"
                     degree, // 접종 차수: 1
                     inoDate: new Date(Date.parse(inoDate)), // 접종 날짜: DATE(2021-09-03)타입
-                    profileImage: img.location, // 프로파일 이미지: "https://wise-vaccine-life.s3.ap-northeast-2.amazonaws.com/1633851872207.PNG"
+                    profileImage: imgUrl, // 프로파일 이미지: "https://wise-vaccine-life.s3.ap-northeast-2.amazonaws.com/1633851872207.PNG"
                     verified: true, // 회원 정보를 업데이트하면 verified를 true로 바꿔준다.
                 },
                 { new: true }
@@ -156,6 +156,22 @@ const authController = {
             return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "회원 탈퇴 실패",
                 error: error,
+            });
+        }
+    },
+
+    // 이미지 업데이트
+    updateImage: (req, res, next) => {
+        const img = req.file;
+
+        if (img) {
+            return res.status(statusCode.OK).json({
+                message: "이미지 업로드 완료",
+                imgUrl: img.location,
+            });
+        } else {
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
+                message: "이미지 업로드 실패",
             });
         }
     },

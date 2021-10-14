@@ -8,12 +8,13 @@ const upload = require("../../../modules/awsUpload");
 router.post("/signup", authController.signup); // 회원가입
 router.post("/signin", authController.signin); // 로그인
 
+router.put("/profile", authModule.loggedIn, authController.updateUser); // 회원정보 수정
 router.put(
-    "/profile",
+    "/profileimg",
     authModule.loggedIn,
     upload.single("img"),
-    authController.updateUser
-); // 회원정보 수정
+    authController.updateImage
+);
 router.delete("/profile", authModule.loggedIn, authController.deleteUser); // 회원 탈퇴
 
 router.get("/", authController.readAllUser); // 회원 전체 조회

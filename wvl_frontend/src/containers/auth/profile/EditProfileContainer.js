@@ -3,6 +3,7 @@ import { useState } from "react";
 import EditProfile from "../../../components/auth/profile/EditProfile";
 import AuthContext from "../../../context/AuthContext";
 import ProfileContext from "../../../context/ProfileContext";
+import client from "../../../libs/api/_client";
 
 function EditProfileContainer() {
     const { authInfo, setAuthInfo } = useContext(AuthContext);
@@ -11,15 +12,15 @@ function EditProfileContainer() {
     const defaultOption = profileInfo;
 
     useEffect(() => {
+        console.log(authInfo);
         setProfileInfo({
             age: authInfo.userInfo.age,
             gender: authInfo.userInfo.gender,
             type: authInfo.userInfo.type,
             degree: authInfo.userInfo.degree,
-            imgURL: authInfo.userInfo.profileImg,
+            imgURL: authInfo.userInfo.imgURL,
             inoDate: authInfo.userInfo.inoDate,
         });
-        console.log(profileInfo);
     }, [authInfo]);
 
     const [profileImg, setProfileImg] = useState({
@@ -30,14 +31,13 @@ function EditProfileContainer() {
 
     const onChangeInputAge = (event) => {
         const { name, value } = event.target;
-        console.log(event.target);
         setProfileInfo({
             ...profileInfo,
             age: value,
         });
     };
 
-    const onClickAvatar = (e) => {
+    const onClickAvatar = async (e) => {
         const imageFile = e.target.files[0];
         const imgBase64 = URL.createObjectURL(imageFile);
         setProfileImg({
@@ -45,6 +45,30 @@ function EditProfileContainer() {
             imgBase64: imgBase64,
             imgFile: imageFile,
         });
+
+        const formData = new FormData();
+        formData.append("img", imageFile);
+
+        try {
+            const response = await client.put(
+                "vaccine/auth/profileimg",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
+            if (response.status === 200) {
+                setProfileInfo({
+                    ...profileInfo,
+                    imgURL: response.data.imgUrl,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const onChangeDropDown = (payload) => {
