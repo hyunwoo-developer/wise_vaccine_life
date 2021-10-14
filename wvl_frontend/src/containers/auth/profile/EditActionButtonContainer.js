@@ -41,7 +41,12 @@ function EditActionButtonContainer() {
             console.log(error);
         }
     };
-    return <EditActionButtons onEdit={onEdit} />;
+
+    const onCancel = () => {
+        history.goBack();
+    };
+
+    return <EditActionButtons onEdit={onEdit} onCancel={onCancel} />;
 }
 
 export default EditActionButtonContainer;

@@ -8,7 +8,10 @@ const postController = {
             // 게시물 작성자의 프로필 이미지와 닉네임도 가져온다.
             const result = await post
                 .find()
-                .populate("writer", "nickName profileImage");
+                .populate(
+                    "writer",
+                    "nickName profileImage gender type age degree"
+                );
             if (!result) {
                 return res.status(statusCode.BAD_REQUEST).json({
                     message: "데이터가 없습니다.",

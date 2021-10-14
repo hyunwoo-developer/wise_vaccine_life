@@ -18,6 +18,7 @@ import {
     ToastsContainerPosition,
 } from "react-toasts";
 import WritePage from "./pages/WritePage";
+import PostsListContainer from "./containers/posts/PostsListContainer";
 
 function App() {
     // const dispatch = useDispatch();

@@ -9,6 +9,7 @@ const LoadingWrap = styled.div`
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
+    z-index: 1;
 `;
 
 function LoadingComponent() {
