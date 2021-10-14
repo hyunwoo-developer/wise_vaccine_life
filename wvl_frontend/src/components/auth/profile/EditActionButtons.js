@@ -26,7 +26,7 @@ function EditActionButtons({ onEdit, onCancel }) {
     return (
         <EditActionButtonWrapper>
             <StyledButton
-                style={{ "background-color": "#44a2f8" }}
+                style={{ backgroundColor: "#44a2f8" }}
                 onClick={onEdit}
             >
                 정보 수정
