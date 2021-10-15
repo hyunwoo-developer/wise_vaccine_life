@@ -6,10 +6,13 @@ import palette from "../../libs/styles/palette";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import LoadingComponent from "../common/loading/LoadingComponent";
 import dayjs from "dayjs";
-import Comment from "../common/comment/Comment";
+import PostsContext from "../../context/PostsContext";
 import { AiFillEdit } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import Comment from "../common/comment/Comment";
 const PostsListBlock = styled(Responsive)`
-    margin-top: 4rem;
+    padding-top: 4rem;
     margin-bottom: 4rem;
 `;
 
@@ -41,7 +44,8 @@ const PostItemBlock = styled.div`
 
 const ProfileWrap = styled.div`
     display: flex;
-    padding-bottom: 0.7rem;
+    padding-top: 5px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #ced4da;
 `;
 
@@ -49,6 +53,7 @@ const ProfileImageWrap = styled.div`
     width: 3rem;
     height: 3rem;
     cursor: pointer;
+    border-radius: 50%;
     overflow: hidden;
 `;
 
@@ -113,13 +118,16 @@ const StyledFemaleIcon = styled(BsGenderFemale)`
 `;
 
 const PostContentWrap = styled.div`
-    margin-top: 2rem;
+    margin-top: 1.2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 `;
 
 const PostCategory = styled.div`
     font-size: 1.2rem;
     font-weight: bold;
     color: grey;
+    margin-bottom: 1.2rem;
 `;
 
 const PostTitle = styled.div`
@@ -129,12 +137,13 @@ const PostTitle = styled.div`
 
 const PostContent = styled.div`
     font-size: 1.3rem;
-    margin-top: 2rem;
+    line-height: 2rem;
+    margin-top: 0.7rem;
 `;
 
 const PostTags = styled.div`
     display: flex;
-    margin-top: 2rem;
+    margin-top: 1rem;
 `;
 
 const PostTagsItem = styled.div`
@@ -157,63 +166,75 @@ const degreeMap = {
     2: "2차 접종",
 };
 
-function PostItem({ post, gender, authInfo }) {
+const typeMap = {
+    PZ: "화이자",
+    MD: "모더나",
+    AZ: "아스트라제네카",
+    JS: "얀센",
+};
+
+function PostItem({ post, onClickPost }) {
     const degree = degreeMap[post.writer.degree];
-    console.log(post);
-    console.log(post.writer);
+    const type = typeMap[post.writer.type];
+    // console.log(post);
+    // console.log(post.writer);
     return (
-        <PostItemBlock>
-            <ProfileWrap>
-                <ProfileImageWrap>
-                    <ProfileImage src={post.writer.profileImage} />
-                </ProfileImageWrap>
-                <PostItemInfoWrap>
-                    <ProfileInfoWrap>
-                        <span className="nickName">
-                            {post.writer.nickName}
-                            {post.writer.gender === "male" ? (
-                                <StyledMaleIcon />
-                            ) : (
-                                <StyledFemaleIcon />
-                            )}
-                        </span>
-                        <span className="profile">{post.writer.type}</span>
-                        <span className="dot">·</span>
-                        <span className="profile">{degree}</span>
-                        <span className="dot">·</span>
-                        <span className="profile">
-                            {parseInt(post.writer.age / 10) * 10}대
-                        </span>
-                    </ProfileInfoWrap>
-                    {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-                    <PostItemDate>
-                        {post.updatedDate
-                            ? dayjs(post.updatedDate).format("YYYY년 MM월 DD일")
-                            : dayjs(post.publishedDate).format(
-                                  "YYYY년 MM월 DD일"
-                              )}
-                    </PostItemDate>
-                </PostItemInfoWrap>
-                {/* {post.writer.nickName === authInfo.userInfo.} */}
-                {/* <PostAiFillEdit /> */}
-            </ProfileWrap>
-            <PostContentWrap>
-                <PostCategory>{post.category}</PostCategory>
-                <PostTitle>{post.title}</PostTitle>
-                <PostContent
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-                ></PostContent>
-                <PostTags>
-                    {post.tags.map((item) => (
-                        <PostTagsItem>#{item}</PostTagsItem>
-                    ))}
-                </PostTags>
-            </PostContentWrap>
-        </PostItemBlock>
+        <>
+            {post && (
+                <PostItemBlock onClick={onClickPost}>
+                    <ProfileWrap>
+                        <ProfileImageWrap>
+                            <ProfileImage src={post.writer.profileImage} />
+                        </ProfileImageWrap>
+                        <PostItemInfoWrap>
+                            <ProfileInfoWrap>
+                                <span className="nickName">
+                                    {post.writer.nickName}
+                                    {post.writer.gender === "male" ? (
+                                        <StyledMaleIcon />
+                                    ) : (
+                                        <StyledFemaleIcon />
+                                    )}
+                                </span>
+                                <span className="profile">{type}</span>
+                                <span className="dot">·</span>
+                                <span className="profile">{degree}</span>
+                                <span className="dot">·</span>
+                                <span className="profile">
+                                    {parseInt(post.writer.age / 10) * 10}대
+                                </span>
+                            </ProfileInfoWrap>
+                            <PostItemDate>
+                                {post.updatedDate
+                                    ? dayjs(post.updatedDate).format(
+                                          "YYYY년 MM월 DD일 hh시 mm분"
+                                      )
+                                    : dayjs(post.publishedDate).format(
+                                          "YYYY년 MM월 DD일 hh시 mm분"
+                                      )}
+                            </PostItemDate>
+                        </PostItemInfoWrap>
+                    </ProfileWrap>
+                    <PostContentWrap>
+                        <PostCategory>@{post.category}</PostCategory>
+                        <PostTitle>&#91;{post.title}&#93;</PostTitle>
+                        <PostContent
+                            dangerouslySetInnerHTML={{ __html: post.content }}
+                        ></PostContent>
+                        <PostTags>
+                            {post.tags.map((item) => (
+                                <PostTagsItem>#{item}</PostTagsItem>
+                            ))}
+                        </PostTags>
+                    </PostContentWrap>
+                </PostItemBlock>
+            )}
+        </>
     );
 }
 
 function PostsList({ posts, loading }) {
+    const history = useHistory();
     return (
         <>
             {loading && <LoadingComponent />}
@@ -221,7 +242,15 @@ function PostsList({ posts, loading }) {
                 <PostsListContainer>
                     {posts &&
                         posts.map((post, index) => {
-                            return <PostItem post={post} />; // key={index} 선생님께 물어보기
+                            return (
+                                <PostItem
+                                    key={index}
+                                    onClickPost={() =>
+                                        history.push(`/post/${post._id}`)
+                                    }
+                                    post={post}
+                                />
+                            );
                         })}
                 </PostsListContainer>
             </PostsListBlock>

@@ -12,6 +12,7 @@ import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import EditProfilePage from "./pages/EditProfilePage";
+import DetailPostPage from "./pages/DetailPostPage";
 import {
     ToastsContainer,
     ToastsStore,
@@ -36,6 +37,7 @@ function App() {
             if (token !== null) {
                 client.defaults.headers.common["Authorization"] = `${token}`;
                 const response = await client.get("/vaccine/auth/profile");
+                console.log("처음 리스폰스", response.data.data);
                 setAuthInfo({ isLoggedIn: true, userInfo: response.data.data });
                 console.log(response);
                 try {
@@ -55,6 +57,7 @@ function App() {
             <Route component={SignInPage} exact path="/signin" />
             <Route component={SignUpPage} exact path="/signup" />
             <Route component={EditProfilePage} exact path="/edit/profile" />
+            <Route component={DetailPostPage} exact path="/post/:postid" />
 
             {/* <Route component={RegisterPage} path="/register" /> */}
             <Route component={WritePage} path="/write" />

@@ -51,6 +51,7 @@ const authController = {
                         const payload = {
                             nickName: result.nickName,
                             verified: result.verified,
+                            profileImage: result.profileImage,
                         };
                         const token = jwtModule.create(payload); // 페이로드를 담아 토큰 생성
                         return res.status(statusCode.OK).json({
@@ -125,6 +126,7 @@ const authController = {
             const payload = {
                 nickName: result.nickName,
                 verified: result.verified,
+                profileImage: result.profileImage,
             };
 
             // 토큰을 새로 발급

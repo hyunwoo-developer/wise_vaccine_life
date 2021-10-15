@@ -24,9 +24,13 @@ const commentController = {
                 { new: true }
             );
 
+            const popResult = await post
+                .findById(id)
+                .populate("comments.commentWriter");
+
             return res.status(statusCode.OK).json({
                 message: "댓글 생성 성공",
-                data: result,
+                data: popResult,
             });
         } catch (error) {
             return res.status(statusCode.INTERNAL_SERVER_ERROR).json({

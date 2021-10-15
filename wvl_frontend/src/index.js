@@ -16,8 +16,8 @@ import ProfileProvider from "./context/providers/ProfileProvider";
 import PostsProvider from "./context/providers/PostsProvider";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(sagaMiddleware))
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(rootSaga);
@@ -25,22 +25,22 @@ sagaMiddleware.run(rootSaga);
 export const history = createBrowserHistory();
 
 ReactDOM.render(
-    <React.StrictMode>
-        <BrowserRouter history={history}>
-            <ProfileProvider>
-                <PostsProvider>
-                    <PostProvider>
-                        <AuthProvider>
-                            <Provider store={store}>
-                                <App />
-                            </Provider>
-                        </AuthProvider>
-                    </PostProvider>
-                </PostsProvider>
-            </ProfileProvider>
-        </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById("root")
+  <React.StrictMode>
+    <BrowserRouter history={history}>
+      <ProfileProvider>
+        <PostsProvider>
+          <PostProvider>
+            <AuthProvider>
+              <Provider store={store}>
+                <App />
+              </Provider>
+            </AuthProvider>
+          </PostProvider>
+        </PostsProvider>
+      </ProfileProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

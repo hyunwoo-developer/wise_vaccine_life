@@ -26,23 +26,16 @@ const GlobalStyles = createGlobalStyle`
     font-family: Pretendard-Regular;
     
   };
-
-  body {
-    background-color: #f0f2f5;
-  }
-
   em {
     /* font-weight: bolder;
     color: orange */
     font-style: italic;
   };
-
   strong {
     font-weight: bolder
   };
-
-  .toast {
-  color: white !important;
+.toast {
+  color: #ffffff !important;
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 22px;
@@ -54,17 +47,14 @@ const GlobalStyles = createGlobalStyle`
   justify-content: center;
   border-radius: 8px !important;
 }
-
 .toast-info {
   background-color: rgba(33,33,33,0.8) !important;
 }
-
 .toast-warning {
   background-color: rgba(242,82,24,0.8) !important;
 }
-
 .toast-success {
-  background-color: rgba(104,186,108,0.8) !important;
+  background-color: rgba(51,113,246,0.8) !important;
 }
 `;
 

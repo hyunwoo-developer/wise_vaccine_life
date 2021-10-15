@@ -1,27 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
+import { useContext } from "react";
 import WriteDropDown from "../../components/write/WriteDropDown";
 import PostContext from "../../context/PostContext";
 
 function WriteDropDownContainer() {
-    const options = ["후기", "꿀팁", "기타"];
-    const { postInfo, setPostInfo } = useContext(PostContext);
-    const defaultOption = postInfo.category;
+  const { postInfo, setPostInfo } = useContext(PostContext);
+  const defaultOption = postInfo.category;
 
-    const onChangeDropDown = (payload) => {
-        setPostInfo({
-            ...postInfo,
-            category: payload.value,
-        });
-    };
+  const options = ["후기", "꿀팁", "기타"];
 
-    return (
-        <WriteDropDown
-            onChangeDropDown={onChangeDropDown}
-            defaultOption={defaultOption}
-            options={options}
-            postInfo={postInfo}
-        />
-    );
+  const onChangeDropDown = (payload) => {
+    //console.log(payload);
+    setPostInfo({
+      ...postInfo,
+      category: payload.value,
+    });
+  };
+
+  return (
+    <WriteDropDown
+      options={options}
+      defaultOption={defaultOption}
+      postInfo={postInfo}
+      onChangeDropDown={onChangeDropDown}
+    />
+  );
 }
 
 export default WriteDropDownContainer;

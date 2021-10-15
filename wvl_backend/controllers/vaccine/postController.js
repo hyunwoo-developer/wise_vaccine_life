@@ -37,7 +37,10 @@ const postController = {
             // 게시물 작성자의 프로필 이미지와 닉네임도 가져온다.
             const result = await post
                 .findById(id)
-                .populate("writer", "nickName profileImage");
+                .populate(
+                    "writer comments.commentWriter",
+                    "nickName profileImage gender type age degree"
+                );
             if (!result) {
                 return res.status(statusCode.BAD_REQUEST).json({
                     message: "데이터가 없습니다.",
@@ -48,6 +51,7 @@ const postController = {
                 data: result,
             });
         } catch (error) {
+            console.log(error);
             return res.status(statusCode.INTERNAL_SERVER_ERROR).json({
                 message: "게시물 조회 실패",
                 error: error,

@@ -7,15 +7,15 @@ import WriteDropDownContainer from "../containers/write/WriteDropDownContainer";
 import BlockBox from "../components/common/block/BlockBox";
 
 function WritePage() {
-    return (
-        <Responsive>
-            <BlockBox height={"3rem"} />
-            <WriteDropDownContainer />
-            <EditorContainer />
-            <TagBoxContainer />
-            <WriteActionButtonContainer />
-        </Responsive>
-    );
+  return (
+    <Responsive>
+      <BlockBox height={"3rem"} />
+      <WriteDropDownContainer />
+      <EditorContainer />
+      <TagBoxContainer />
+      <WriteActionButtonContainer />
+    </Responsive>
+  );
 }
 
 export default WritePage;

@@ -6,7 +6,6 @@ import MainLogo from "../../assets/global/logo.png";
 import ButtonComponent from "./ButtonComponent";
 import SearchBox from "./search/SearchBox";
 import ProfileAvatar from "../../assets/global/profile.png";
-
 import { GiHamburgerMenu } from "react-icons/gi";
 const NavbarWrap = styled.div`
     position: fixed;
@@ -73,14 +72,14 @@ const ProfileImageWrap = styled.div`
     cursor: pointer;
 `;
 
-// const ProfileImage = styled.img`
-//     height: 100%;
-//     min-width: 100%;
-//     left: 50%;
-//     position: relative;
-//     border-radius: 50%;
-//     transform: translateX(-50%);
-// `;
+const ProfileImage = styled.img`
+    height: 100%;
+    min-width: 100%;
+    left: 50%;
+    position: relative;
+    border-radius: 50%;
+    transform: translateX(-50%);
+`;
 
 const ProfileBoard = styled.div`
     position: absolute;
@@ -126,7 +125,6 @@ function NavbarComponent({
                         >
                             <StyledLogo src={MainLogo} />
                         </Link>
-                        {/* <SearchBox /> */}
                     </div>
                     {authInfo && authInfo.isLoggedIn ? (
                         <div className="right">
@@ -136,14 +134,12 @@ function NavbarComponent({
                                 </span>{" "}
                                 님 환영합니다
                             </ProfileText>
+
                             <ProfileWrap>
                                 <ProfileImageWrap onClick={onClickProfileImg}>
-                                    {/* <ProfileImage
-                                        src={authInfo.userInfo.imgURL}
-                                    /> */}
                                     <ProfileHamburgerMenu />
-                                    {/* import { GiHamburgerMenu } from 'react-icons/gi'; */}
                                 </ProfileImageWrap>
+
                                 {visible && (
                                     <ProfileBoard>
                                         <ProfileItem

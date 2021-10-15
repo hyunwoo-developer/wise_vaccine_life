@@ -2,35 +2,24 @@ import { useState } from "react";
 import PostContext from "../PostContext";
 
 const PostProvider = ({ children }) => {
-    const [postInfo, setPostInfo] = useState({
-        tags: [],
-        title: "",
-        body: "",
-        category: "",
-        originalPostId: "",
-    });
+  const [postInfo, setPostInfo] = useState({
+    category: "",
+    tags: [],
+    title: "",
+    body: "",
+    originalPostId: "",
+  });
 
-    const resetPost = () => {
-        setPostInfo({
-            tags: [],
-            title: "",
-            body: "",
-            category: "",
-            originalPostId: "",
-        });
-    };
-
-    return (
-        <PostContext.Provider
-            value={{
-                postInfo,
-                setPostInfo,
-                resetPost,
-            }}
-        >
-            {children}
-        </PostContext.Provider>
-    );
+  return (
+    <PostContext.Provider
+      value={{
+        postInfo,
+        setPostInfo,
+      }}
+    >
+      {children}
+    </PostContext.Provider>
+  );
 };
 
 export default PostProvider;

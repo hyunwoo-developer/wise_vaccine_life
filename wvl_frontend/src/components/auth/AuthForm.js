@@ -27,7 +27,6 @@ const StyledInput = styled.input`
         color: $oc-teal-7;
         border-bottom: 1px solid ${palette.gray[7]};
     }
-
     & + & {
         margin-top: 2rem;
     }

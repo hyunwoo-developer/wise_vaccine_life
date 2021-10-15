@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
 import DefaultAvatar from "../../../assets/global/profile.png";
+import dayjs from "dayjs";
 const CommentItemWrap = styled.div``;
 
 const CommentItemBlock = styled.div`
@@ -22,6 +23,8 @@ const ProfileImageWrap = styled.div`
 const ProfileImage = styled.img`
     height: 100%;
     min-width: 100%;
+    width: 2rem;
+    height: 2rem;
     left: 50%;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
 
@@ -43,6 +46,7 @@ const CommentItemDate = styled.div`
 
 const ProfileInfoWrap = styled.div`
     display: flex;
+    padding-top: 0.3rem;
     align-items: center;
     font-size: 1.3rem;
 
@@ -79,42 +83,85 @@ const CommentContent = styled.div`
     margin-top: 1.5rem;
     margin-bottom: 1rem;
     font-size: 1.3rem;
+    line-height: 2rem;
 `;
 
+const degreeMap = {
+    0: "접종 안함",
+    1: "1차 접종",
+    2: "2차 접종",
+};
+
+const typeMap = {
+    PZ: "화이자",
+    MD: "모더나",
+    AZ: "아스트라제네카",
+    JS: "얀센",
+};
+
 function CommentItem({ commentInfo }) {
+    // console.log(commentInfo);
+    const degree = degreeMap[commentInfo && commentInfo.commentWriter.degree];
+    const type = typeMap[commentInfo && commentInfo.commentWriter.type];
     return (
-        <CommentItemBlock>
-            <ProfileWrap>
-                <ProfileImageWrap>
-                    <ProfileImage src={DefaultAvatar} />
-                </ProfileImageWrap>
-                <CommentItemInfoWrap>
-                    <ProfileInfoWrap>
-                        <span className="nickName">
-                            이동훈
-                            {/* {gender === "male" ? <StyledMaleIcon /> : <StyledFemaleIcon />} */}
-                        </span>
-                        <span className="profile">모더나</span>
-                        <span className="dot">·</span>
-                        <span className="profile">1차</span>
-                        <span className="dot">·</span>
-                        <span className="profile">20대</span>
-                    </ProfileInfoWrap>
-                    {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-                </CommentItemInfoWrap>
-            </ProfileWrap>
-            <CommentContent>안녕하세요 댓글 입니다.</CommentContent>
-            <CommentItemDate>2021-10-14 / 13:33</CommentItemDate>
-        </CommentItemBlock>
+        <>
+            {commentInfo && (
+                <CommentItemBlock>
+                    <ProfileWrap>
+                        <ProfileImageWrap>
+                            <ProfileImage
+                                src={commentInfo.commentWriter.profileImage}
+                            />
+                        </ProfileImageWrap>
+                        <CommentItemInfoWrap>
+                            <ProfileInfoWrap>
+                                <span className="nickName">
+                                    {commentInfo.commentWriter.nickName}
+                                    {commentInfo.commentWriter.gender ===
+                                    "male" ? (
+                                        <StyledMaleIcon />
+                                    ) : (
+                                        <StyledFemaleIcon />
+                                    )}
+                                </span>
+                                <span className="profile">{type}</span>
+                                <span className="dot">·</span>
+                                <span className="profile">{degree}</span>
+                                <span className="dot">·</span>
+                                <span className="profile">
+                                    {parseInt(
+                                        commentInfo.commentWriter.age / 10
+                                    ) * 10}
+                                    대
+                                </span>
+                            </ProfileInfoWrap>
+                        </CommentItemInfoWrap>
+                    </ProfileWrap>
+                    <CommentContent>
+                        {commentInfo.commentContent}
+                    </CommentContent>
+                    <CommentItemDate>
+                        {commentInfo.updatedDate
+                            ? dayjs(commentInfo.updatedDate).format(
+                                  "YYYY년 MM월 DD일 HH시 mm분"
+                              )
+                            : dayjs(commentInfo.commentDate).format(
+                                  "YYYY년 MM월 DD일 HH시 mm분"
+                              )}
+                    </CommentItemDate>
+                </CommentItemBlock>
+            )}
+        </>
     );
 }
 
-function CommentItemList() {
+function CommentItemList({ postInfo }) {
+    // console.log("postInfo: ", postInfo);
     return (
         <CommentItemWrap>
-            <CommentItem />
-            <CommentItem />
-            <CommentItem />
+            {postInfo.map((commentInfo, index) => {
+                return <CommentItem commentInfo={commentInfo} key={index} />;
+            })}
         </CommentItemWrap>
     );
 }

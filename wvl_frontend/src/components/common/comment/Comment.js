@@ -18,14 +18,17 @@ const CommentContainer = styled.div`
     margin-top: 2rem;
 `;
 
-function Comment() {
+function Comment({ postInfo, onChangeInput, onClickComment }) {
     return (
         <CommentWrap>
             <CommentContainer>
-                <CommentInput />
+                <CommentInput
+                    onChangeInput={onChangeInput}
+                    onClickComment={onClickComment}
+                />
             </CommentContainer>
             <StyledHR />
-            <CommentItemList />
+            <CommentItemList postInfo={postInfo.post.comments} />
         </CommentWrap>
     );
 }

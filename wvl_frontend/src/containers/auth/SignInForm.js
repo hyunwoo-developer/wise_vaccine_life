@@ -4,6 +4,11 @@ import { useHistory } from "react-router-dom";
 import AuthForm from "../../components/auth/AuthForm";
 import AuthContext from "../../context/AuthContext";
 import client from "../../libs/api/_client";
+import {
+    ToastsContainer,
+    ToastsStore,
+    ToastsContainerPosition,
+} from "react-toasts";
 
 function SignInForm() {
     const history = useHistory();
@@ -34,17 +39,22 @@ function SignInForm() {
             console.log(response);
             if (response.status === 200) {
                 const accessToken = response.data.accessToken;
+
+                let base64Payload = accessToken.split(".")[1];
+                let payload = Buffer.from(base64Payload, "base64");
+                let finalResult = JSON.parse(payload.toString());
+                localStorage.setItem("profileImage", finalResult.profileImage);
                 localStorage.setItem("accessToken", accessToken);
                 client.defaults.headers.common[
                     "Authorization"
                 ] = `${accessToken}`;
                 const result = await client.get("/vaccine/auth/profile");
-                console.log(result.data.data);
+                console.log("asd", result.data.data);
                 setAuthInfo({ isLoggedIn: true, userInfo: result.data.data });
+                ToastsStore.success("로그인 완료");
                 history.push("/");
             }
         } catch (error) {
-            console.log(error);
             if (error.response.status === 400) {
                 setError("이메일 / 비밀번호를 확인해 주시기 바랍니다.");
             }

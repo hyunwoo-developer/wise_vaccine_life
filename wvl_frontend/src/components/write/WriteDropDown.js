@@ -3,19 +3,18 @@ import styled from "styled-components";
 import DropDown from "../common/dropdown/DropDown";
 
 const DropDownWrap = styled.div`
-    margin-top: 3rem;
     width: 20rem;
+    padding-top: 2rem;
+    border-radius: 2px;
 `;
 
 const StyledDropDown = styled(DropDown)`
     .DropDown_Control {
         font-size: 1.3rem !important;
     }
-
     .DropDown_Menu {
         font-size: 1.3rem !important;
     }
-
     .DropDown_Arrow {
         top: 11px !important;
     }

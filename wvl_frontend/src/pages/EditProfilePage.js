@@ -5,13 +5,13 @@ import EditProfileContainer from "../containers/auth/profile/EditProfileContaine
 import EditActionButtonContainer from "../containers/auth/profile/EditActionButtonContainer";
 
 function EditProfilePage() {
-    return (
-        <Responsive>
-            <BlockBox height={"3rem"} />
-            <EditProfileContainer />
-            <EditActionButtonContainer />
-        </Responsive>
-    );
+  return (
+    <Responsive>
+      <BlockBox height={"3rem"} />
+      <EditProfileContainer />
+      <EditActionButtonContainer />
+    </Responsive>
+  );
 }
 
 export default EditProfilePage;

@@ -5,7 +5,6 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const EditorWrapper = styled.div`
-    margin-top: 1rem;
     padding-top: 2rem;
     padding-bottom: 3rem;
 `;
@@ -14,30 +13,22 @@ const TitleInput = styled.input`
     font-size: 2rem;
     font-weight: bolder;
     outline: none;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     border: none;
     border-bottom: 1px solid ${palette.gray[4]};
     margin-bottom: 2rem;
     width: 100%;
     box-sizing: border-box;
-    background-color: #f0f2f5;
 `;
 
 const QuillWrapper = styled.div`
-    margin-top: 1rem;
     .ql-editor {
         padding: 1rem 0;
         text-indent: 10px;
         min-height: 320px;
         font-size: 1.5rem;
         line-height: 1.5;
-        background-color: white;
     }
-    /* .ql-editor.ql-blank:before {
-        left: 0px;
-    } */
 `;
 
 function Editor({ onChangeField, body, title }) {
@@ -77,6 +68,7 @@ function Editor({ onChangeField, body, title }) {
     ];
 
     const onChangeBody = (body) => {
+        console.log("???");
         onChangeField({ key: "body", value: body });
     };
 
@@ -96,7 +88,7 @@ function Editor({ onChangeField, body, title }) {
                     theme="snow"
                     modules={modules}
                     formats={formats}
-                    value={body || ""}
+                    value={body}
                     onChange={(content, delta, source, editor) => {
                         if (source === "user") {
                             onChangeBody(editor.getHTML());

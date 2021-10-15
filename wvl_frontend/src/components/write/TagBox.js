@@ -5,8 +5,7 @@ import palette from "../../libs/styles/palette";
 const TagBoxWrapper = styled.div`
     width: 100%;
     border-top: 1px solid ${palette.gray[2]};
-    padding-top: 1rem;
-
+    padding-top: 2rem;
     h4 {
         font-size: 1.5rem;
         font-weight: bolder;
@@ -17,23 +16,21 @@ const TagBoxWrapper = styled.div`
 `;
 
 const TagForm = styled.form`
-    border-radius: 1px;
+    border-radius: 2px;
     overflow: hidden;
     display: flex;
     width: 256px;
-    border: 1px solid ${palette.gray[4]};
+    border: 1px solid #ced4da;
     input,
     button {
         outline: none;
         border: none;
         font-size: 1.2rem;
     }
-
     input {
         padding: 0.5rem;
         flex: 1;
     }
-
     button {
         cursor: pointer;
         padding-right: 1rem;
@@ -70,9 +67,10 @@ const TagItem = React.memo(({ tag, onRemove }) => (
 
 const TagList = React.memo(({ tags, onRemove }) => (
     <TagListBlock>
-        {tags.map((tag) => (
-            <TagItem key={tag} tag={tag} onRemove={onRemove} />
-        ))}
+        {tags &&
+            tags.map((tag) => (
+                <TagItem key={tag} tag={tag} onRemove={onRemove} />
+            ))}
     </TagListBlock>
 ));
 
