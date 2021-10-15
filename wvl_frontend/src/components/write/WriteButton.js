@@ -11,7 +11,7 @@ const StyledButton = styled(ButtonComponent)`
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
-    background-color: #44a2f8;
+    background-color: #68ba6c;
     position: fixed;
     bottom: 2rem;
     right: 2rem;

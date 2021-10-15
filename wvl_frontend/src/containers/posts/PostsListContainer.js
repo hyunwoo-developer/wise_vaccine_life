@@ -3,10 +3,12 @@ import PostsList from "../../components/posts/PostsList";
 import PostsContext from "../../context/PostsContext";
 import { useHistory } from "react-router";
 import client from "../../libs/api/_client";
+import AuthContext from "../../context/AuthContext";
 
 function PostsListContainer() {
     const history = useHistory();
     const { postsInfo, setPostsInfo } = useContext(PostsContext);
+    const { authInfo, setAuthInfo } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -31,7 +33,13 @@ function PostsListContainer() {
         getData();
     }, []);
 
-    return <PostsList posts={postsInfo.posts} loading={loading} />;
+    return (
+        <PostsList
+            posts={postsInfo.posts}
+            loading={loading}
+            authInfo={authInfo}
+        />
+    );
 }
 
 export default PostsListContainer;

@@ -7,6 +7,7 @@ import ButtonComponent from "./ButtonComponent";
 import SearchBox from "./search/SearchBox";
 import ProfileAvatar from "../../assets/global/profile.png";
 
+import { GiHamburgerMenu } from "react-icons/gi";
 const NavbarWrap = styled.div`
     position: fixed;
     width: 100%;
@@ -72,14 +73,14 @@ const ProfileImageWrap = styled.div`
     cursor: pointer;
 `;
 
-const ProfileImage = styled.img`
-    height: 100%;
-    min-width: 100%;
-    left: 50%;
-    position: relative;
-    border-radius: 50%;
-    transform: translateX(-50%);
-`;
+// const ProfileImage = styled.img`
+//     height: 100%;
+//     min-width: 100%;
+//     left: 50%;
+//     position: relative;
+//     border-radius: 50%;
+//     transform: translateX(-50%);
+// `;
 
 const ProfileBoard = styled.div`
     position: absolute;
@@ -99,6 +100,11 @@ const ProfileItem = styled.div`
     & + & {
         border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
+`;
+
+const ProfileHamburgerMenu = styled(GiHamburgerMenu)`
+    font-size: 22px;
+    color: white;
 `;
 
 function NavbarComponent({
@@ -132,9 +138,11 @@ function NavbarComponent({
                             </ProfileText>
                             <ProfileWrap>
                                 <ProfileImageWrap onClick={onClickProfileImg}>
-                                    <ProfileImage
+                                    {/* <ProfileImage
                                         src={authInfo.userInfo.imgURL}
-                                    />
+                                    /> */}
+                                    <ProfileHamburgerMenu />
+                                    {/* import { GiHamburgerMenu } from 'react-icons/gi'; */}
                                 </ProfileImageWrap>
                                 {visible && (
                                     <ProfileBoard>

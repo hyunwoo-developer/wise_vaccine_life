@@ -23,15 +23,12 @@ const EditItemBlock = styled.div`
 
 const StyledDropDown = styled(DropDown)`
     width: 20rem;
-
     .DropDown_Control {
         font-size: 1.3rem !important;
     }
-
     .DropDown_Menu {
         font-size: 1.3rem !important;
     }
-
     .DropDown_Arrow {
         top: 11px !important;
     }
@@ -125,7 +122,7 @@ function EditProfile({
                     options={degreeOptions}
                     onChangeDropDown={onChangeDropDown}
                     defaultOption={
-                        defaultOption && degreeOptions[defaultOption.degree]
+                        degreeOptions && degreeOptions[defaultOption.degree]
                     }
                     myPlaceholder={"차수를 선택 해주세요."}
                 />

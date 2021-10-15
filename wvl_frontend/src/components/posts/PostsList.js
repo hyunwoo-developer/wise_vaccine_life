@@ -6,8 +6,10 @@ import palette from "../../libs/styles/palette";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import LoadingComponent from "../common/loading/LoadingComponent";
 import dayjs from "dayjs";
+import Comment from "../common/comment/Comment";
+import { AiFillEdit } from "react-icons/ai";
 const PostsListBlock = styled(Responsive)`
-    margin-top: 3rem;
+    margin-top: 4rem;
     margin-bottom: 4rem;
 `;
 
@@ -19,10 +21,13 @@ const PostsListContainer = styled.div`
 
 const PostItemBlock = styled.div`
     padding: 1rem 1rem;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    background-color: white;
     cursor: pointer;
 
     max-width: 40rem;
+    width: 40rem;
     box-sizing: border-box;
 
     @media (max-width: 768px) {
@@ -30,12 +35,14 @@ const PostItemBlock = styled.div`
     }
 
     & + & {
-        margin-top: 2rem;
+        margin-top: 3rem;
     }
 `;
 
 const ProfileWrap = styled.div`
     display: flex;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid #ced4da;
 `;
 
 const ProfileImageWrap = styled.div`
@@ -60,30 +67,33 @@ const PostItemInfoWrap = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-left: 0.7rem;
+    cursor: default;
 `;
 
 const PostItemDate = styled.div`
     font-size: 1.1rem;
     color: grey;
-    margin-top: 0.3rem;
+    margin-top: 0.5rem;
 `;
 
 const ProfileInfoWrap = styled.div`
     display: flex;
     align-items: center;
     font-size: 1.3rem;
-
+    justify-content: space-between;
     .nickName {
         font-weight: bold;
         margin-right: 0.7rem;
+        font-size: 1.4rem;
     }
 
     .profile {
         color: grey;
+        font-size: 1.3rem;
     }
 
     .dot {
-        margin: 0 0.2rem;
+        margin: 0 0.3rem;
     }
 `;
 
@@ -135,7 +145,20 @@ const PostTagsItem = styled.div`
     }
 `;
 
-function PostItem({ post, gender }) {
+// const PostAiFillEdit = styled(AiFillEdit)`
+//     font-size: 26px;
+//     /* margin-left: 10rem; */
+//     color: #10345f;
+// `;
+
+const degreeMap = {
+    0: "접종 안함",
+    1: "1차 접종",
+    2: "2차 접종",
+};
+
+function PostItem({ post, gender, authInfo }) {
+    const degree = degreeMap[post.writer.degree];
     console.log(post);
     console.log(post.writer);
     return (
@@ -156,7 +179,7 @@ function PostItem({ post, gender }) {
                         </span>
                         <span className="profile">{post.writer.type}</span>
                         <span className="dot">·</span>
-                        <span className="profile">1차</span>
+                        <span className="profile">{degree}</span>
                         <span className="dot">·</span>
                         <span className="profile">
                             {parseInt(post.writer.age / 10) * 10}대
@@ -171,6 +194,8 @@ function PostItem({ post, gender }) {
                               )}
                     </PostItemDate>
                 </PostItemInfoWrap>
+                {/* {post.writer.nickName === authInfo.userInfo.} */}
+                {/* <PostAiFillEdit /> */}
             </ProfileWrap>
             <PostContentWrap>
                 <PostCategory>{post.category}</PostCategory>
