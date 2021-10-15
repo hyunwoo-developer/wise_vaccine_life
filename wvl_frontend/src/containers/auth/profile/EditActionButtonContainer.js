@@ -18,7 +18,7 @@ function EditActionButtonContainer() {
                 type: profileInfo.type,
                 degree: profileInfo.degree,
                 inoDate: profileInfo.inoDate,
-                imgUrl: profileInfo.profileImage,
+                imgUrl: profileInfo.imgURL,
             });
 
             if (response.status === 200) {
@@ -30,7 +30,7 @@ function EditActionButtonContainer() {
                         gender: profileInfo.gender,
                         type: profileInfo.type,
                         degree: profileInfo.degree,
-                        profileImage: profileInfo.profileImage,
+                        imgURL: profileInfo.imgURL,
                         inoDate: profileInfo.inoDate,
                     },
                 });

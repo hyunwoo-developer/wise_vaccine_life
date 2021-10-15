@@ -39,11 +39,6 @@ function SignInForm() {
             console.log(response);
             if (response.status === 200) {
                 const accessToken = response.data.accessToken;
-
-                let base64Payload = accessToken.split(".")[1];
-                let payload = Buffer.from(base64Payload, "base64");
-                let finalResult = JSON.parse(payload.toString());
-                localStorage.setItem("profileImage", finalResult.profileImage);
                 localStorage.setItem("accessToken", accessToken);
                 client.defaults.headers.common[
                     "Authorization"

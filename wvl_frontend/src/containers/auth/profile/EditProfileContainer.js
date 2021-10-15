@@ -18,7 +18,7 @@ function EditProfileContainer() {
             gender: authInfo.userInfo.gender,
             type: authInfo.userInfo.type,
             degree: authInfo.userInfo.degree,
-            profileImage: authInfo.userInfo.profileImage,
+            imgURL: authInfo.userInfo.imgURL,
             inoDate: authInfo.userInfo.inoDate,
         });
     }, [authInfo]);
@@ -61,10 +61,9 @@ function EditProfileContainer() {
             );
 
             if (response.status === 200) {
-                localStorage.setItem("profileImage", response.data.imgUrl);
                 setProfileInfo({
                     ...profileInfo,
-                    profileImage: profileInfo.profileImage,
+                    imgURL: response.data.imgUrl,
                 });
             }
         } catch (error) {

@@ -103,6 +103,7 @@ function CommentItem({ commentInfo }) {
     // console.log(commentInfo);
     const degree = degreeMap[commentInfo && commentInfo.commentWriter.degree];
     const type = typeMap[commentInfo && commentInfo.commentWriter.type];
+    console.log(commentInfo);
     return (
         <>
             {commentInfo && (

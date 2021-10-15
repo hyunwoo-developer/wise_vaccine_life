@@ -78,7 +78,7 @@ function EditProfile({
                     <BoldLabel>프로필 이미지 선택</BoldLabel>
                 </EditLabelWrap>
                 <EditAvatar
-                    imgURL={profileImg.imgBase64 || defaultOption.profileImage}
+                    imgURL={profileImg.imgBase64 || defaultOption.imgURL}
                     onClickAvatar={onClickAvatar}
                 />
             </EditItemBlock>
