@@ -1,4 +1,8 @@
 # wise_vaccine_life
+
+![node_badge](https://img.shields.io/badge/node-v14.17.5-brightgreen)
+![npm_badge](https://img.shields.io/badge/npm-v7.24.1-blue)
+
 <img width="1366" alt="슬기로운 백신생활 2021-10-11 17-59-45" src="https://user-images.githubusercontent.com/86070069/136762866-01dbc19d-31fd-4a89-84da-c807dd0cecca.png">
 
 # About the project
