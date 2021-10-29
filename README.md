@@ -54,9 +54,10 @@ API 명세서 : https://github.com/hyunwoo-developer/wise_vaccine_life/wiki
 Mac OS 환경에서 개발되었습니다.
 
 1. 백엔드 부터 ```npm install```
-2. 백엔드 ``` npm run dev```
-3. 프론트 ```yarn install```
-4. 프론트 node_module의 react-dropdown의 파일의 내용을 깃헙 레포의 issues에 첨부된 파일의 내용으로 변경
-5. 프론트 ``` yarn start```
-6. 정상 작동
+2. config 폴더 생성 후 awsConfig.json, dbConfig.json, jwtSecret.json 파일을 설정해준다.
+3. 백엔드 ``` npm run dev```
+4. 프론트 ```yarn install```
+5. 프론트 node_module의 react-dropdown의 파일의 내용을 깃헙 레포의 issues에 첨부된 파일의 내용으로 변경
+6. 프론트 ``` yarn start```
+7. 정상 작동
 
